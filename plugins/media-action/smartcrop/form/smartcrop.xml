@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
 	<fieldset name="smartcrop" label="PLG_MEDIA-ACTION_SMARTCROP_LABEL">
+
+		<field
+			name="smartcrop_quality"
+			type="number"
+			label="PLG_MEDIA-ACTION_SMARTCROP_QUALITY"
+			addonBefore="PLG_MEDIA-ACTION_SMARTCROP_QUALITY"
+			min="1"
+			max="100"
+			step="1"
+			default="80"
+		/>
+
+		<field
+			type="spacer"
+			hr="true"
+		/>
 		<field
 			name="data_focus_top"
 			type="text"

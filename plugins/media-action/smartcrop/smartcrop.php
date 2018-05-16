@@ -29,6 +29,7 @@ class PlgMediaActionSmartCrop extends \Joomla\Component\Media\Administrator\Plug
     {
         parent::loadJs();
 
+        HTMLHelper::_('script', 'plg_media-action_smartcrop/responsifyjs/responsify.js', array('version' => 'auto', 'relative' => true));
     }
 
     /**

@@ -12,7 +12,7 @@
     <media destination="plg_media-action_smartcrop" folder="media">
         <folder>js</folder>
         <folder>css</folder>
-        <folder>responsifyjs</folder>
+        <!--folder>responsifyjs</folder-->
     </media>
     <files>
         <filename plugin="smartcrop">smartcrop.php</filename>
