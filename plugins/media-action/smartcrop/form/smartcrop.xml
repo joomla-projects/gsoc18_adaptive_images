@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="smartcrop" label="PLG_MEDIA-ACTION_SMARTCROP_LABEL">
+		<field
+			name="data_focus_top"
+			type="text"
+			label="PLG_MEDIA-ACTION_SMARTCROP_PARAM_TOP"
+			hiddenLabel="true"
+			addonBefore="PLG_MEDIA-ACTION_SMARTCROP_PARAM_TOP_PRE"
+			pattern="\d*\.?\d*"
+		/>
+
+        <field
+			name="data_focus_bottom"
+			type="text"
+			label="PLG_MEDIA-ACTION_SMARTCROP_PARAM_BOTTOM"
+			hiddenLabel="true"
+			addonBefore="PLG_MEDIA-ACTION_SMARTCROP_PARAM_BOTTOM_PRE"
+			pattern="\d*\.?\d*"
+		/>
+
+        <field
+			name="data_focus_left"
+			type="text"
+			label="PLG_MEDIA-ACTION_SMARTCROP_PARAM_LEFT"
+			hiddenLabel="true"
+			addonBefore="PLG_MEDIA-ACTION_SMARTCROP_PARAM_LEFT_PRE"
+			pattern="\d*\.?\d*"
+		/>
+
+        <field
+			name="data_focus_right"
+			type="text"
+			label="PLG_MEDIA-ACTION_SMARTCROP_PARAM_RIGHT"
+			hiddenLabel="true"
+			addonBefore="PLG_MEDIA-ACTION_SMARTCROP_PARAM_RIGHT_PRE"
+			pattern="\d*\.?\d*"
+		/>
+
+	</fieldset>
+</form>
