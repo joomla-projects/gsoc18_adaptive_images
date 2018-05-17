@@ -9,7 +9,8 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 
 (function () {
 	"use strict";
-    var canvas = document.getElementById("image-preview"),
+    var initSmartCrop = function (mediaData) {
+        var canvas = document.getElementById("image-preview"),
         context = canvas.getContext("2d"),
         rect = {},
         drag = false,
@@ -111,11 +112,15 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
             context.fillRect(rect.startX, rect.startY, rect.w, rect.h);
         }
     }, false);
+    }
 
-    // Save image
-    /*var saveImage = document.getElementById("button");
-    saveImage.addEventListener("click", function(evt) {
-        window.open(canvas.toDataURL("image/png"));
-        evt.preventDefault();
-    }, false);*/
+    // Register the Events
+	Joomla.MediaManager.Edit.smartcrop = {
+		Activate: function (mediaData) {
+			// Initialize
+			initSmartCrop(mediaData);
+		},
+		Deactivate: function () {
+		}
+	};
 })();
