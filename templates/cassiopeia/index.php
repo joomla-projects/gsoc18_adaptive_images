@@ -53,6 +53,9 @@ HTMLHelper::_('webcomponent', 'vendor/joomla-custom-elements/joomla-alert.min.js
 // Load specific language related CSS
 HTMLHelper::_('stylesheet', 'language/' . $lang->getTag() . '/' . $lang->getTag() . '.css', array('version' => 'auto'));
 
+// Adding ResponsifyJS
+HTMLHelper::_('script', 'media/vendor/responsifyjs/responsify.min.js', ['version' => 'auto', 'relative' => false]);
+
 // Logo file or site title param
 if ($this->params->get('logoFile'))
 {
