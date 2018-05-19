@@ -10,108 +10,45 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 (function () {
 	"use strict";
     var initSmartCrop = function (mediaData) {
-        var canvas = document.getElementById("image-preview"),
-        context = canvas.getContext("2d"),
-        rect = {},
-        drag = false,
-        img = document.createElement("img"),
-        imageName,
-        left = 0,
-        top = 0, 
-        right = 1,
-        bottom = 1,
-        canvasWidth = canvas.width,
-        canvasHeight = canvas.height,
-        imgWidth = canvasWidth, 
-        imgHeight = canvasHeight,
-        clearCanvas = function() {
-            // context.clearRect(0, 0, canvasWidth, canvasHeight);
-	        context.fillStyle = "#ffffff";
-	        context.fillRect(0, 0, canvasWidth, canvasHeight);
-        };
+		var image = document.getElementById('image-preview');
+		
+		// Initiate the cropper for gathering the focus point
+		Joomla.MediaManager.Edit.smartcrop = new Cropper(image, {
+			viewMode: 1,
+			responsive: false,
+			restore: true,
+			autoCrop: false,
+			movable: true,
+			zoomable: false,
+			rotatable: false,
+			autoCropArea: 0,
+			minContainerWidth: image.offsetWidth,
+			minContainerHeight: image.offsetHeight,
+			crop: function (e) {
 
-    function drawImg() {
-        clearCanvas();
-        context.drawImage(img, 0, 0, imgWidth, imgHeight);
-    }
+				// Top, Bottom, Left, right are the data focus points
+                var canvas_data = this.cropper.getCropBoxData();
+                var top = canvas_data.top / image.naturalHeight;
+                var bottom = (canvas_data.height + canvas_data.top) / image.naturalHeight;
+                var left = canvas_data.left / image.naturalWidth;
+				var right = (canvas_data.width + canvas_data.left) / image.naturalWidth;
+				
+				// Setting the computed focus point into the input fields
+				document.getElementById('jform_data_focus_top').value = top.toFixed(2);
+				document.getElementById('jform_data_focus_bottom').value = bottom.toFixed(2);
+				document.getElementById('jform_data_focus_left').value = left.toFixed(2);
+				document.getElementById('jform_data_focus_right').value = right.toFixed(2);
 
-    function updateResult(name, left, top, right, bottom) {
-    	document.getElementById('jform_data_focus_top').value = top;
-		document.getElementById('jform_data_focus_left').value = left;
-		document.getElementById('jform_data_focus_bottom').value = bottom;
-		document.getElementById('jform_data_focus_right').value = right;
-    }
+				// Manageing image extension 
+				var format = Joomla.MediaManager.Edit.original.extension === 'jpg' ? 'jpeg' : Joomla.MediaManager.Edit.original.extension;
 
-    // Image for loading	
-    img.addEventListener("load", function() {
-        var ratio = img.naturalWidth / img.naturalHeight;
-        if (img.naturalHeight > canvasHeight && ratio < 1) {
-            imgWidth = canvasHeight * ratio;
-            imgHeight = canvasHeight;
-        } else if (img.naturalWidth > canvasWidth && ratio > 1) {
-            imgWidth = canvasWidth;
-            imgHeight = canvasWidth / ratio;
-        } else {
-            imgWidth = img.naturalWidth;
-            imgHeight = img.naturalHeight;
-        }
-        drawImg();
-    }, false);
+				// Takeing the value of the quality
+				var quality = document.getElementById('jform_crop_quality').value;
 
-    // To enable drag and drop
-    canvas.addEventListener("dragover", function(evt) {
-        evt.preventDefault();
-    }, false);
-
-    // Handle dropped image file - only Firefox and Google Chrome
-    canvas.addEventListener("drop", function(evt) {
-        var files = evt.dataTransfer.files;
-        if (files.length > 0) {
-            var file = files[0];
-            if (typeof FileReader !== "undefined" && file.type.indexOf("image") != -1) {
-                var reader = new FileReader();
-                // Note: addEventListener doesn't work in Google Chrome for this event
-                reader.onload = function(evt) {
-                    img.src = evt.target.result;
-                };
-                reader.readAsDataURL(file);
-                imageName = file.name;
-                updateResult(imageName, 0, 0, 1, 1);
-            }
-        }
-        evt.preventDefault();
-    }, false);
-
-    // Detect mousedown
-    canvas.addEventListener("mousedown", function(e) {
-        rect.startX = e.layerX;
-        rect.startY = e.layerY;
-        drag = true;
-    }, false);
-
-    // Detect mouseup
-    canvas.addEventListener("mouseup", function(e) {
-        drag = false;
-    }, false);
-
-    // Draw, if mouse button is pressed
-    canvas.addEventListener("mousemove", function(e) {
-        if (drag) {
-            drawImg();
-            
-            rect.w = (e.layerX) - rect.startX;
-            rect.h = (e.layerY) - rect.startY;
-            left = rect.startX / imgWidth;
-            top = rect.startY / imgHeight;
-            right = (rect.w + rect.startX) / imgWidth;
-            bottom = (rect.h + rect.startY) / imgHeight;
-            if (imageName) {
-            	updateResult(imageName, left.toFixed(2), top.toFixed(2), right.toFixed(2), bottom.toFixed(2));
+				// Notify the app that a change has been made
+				window.dispatchEvent(new Event('mediaManager.history.point'));
 			}
-            context.fillStyle = "rgba(255, 0, 0, 0.3)";
-            context.fillRect(rect.startX, rect.startY, rect.w, rect.h);
-        }
-    }, false);
+        });
     }
 
     // Register the Events
@@ -121,6 +58,11 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 			initSmartCrop(mediaData);
 		},
 		Deactivate: function () {
+            if (!Joomla.MediaManager.Edit.smartcrop.cropper) {
+				return;
+			}
+			// Destroy the instance
+			Joomla.MediaManager.Edit.smartcrop.cropper.destroy();
 		}
 	};
 })();
