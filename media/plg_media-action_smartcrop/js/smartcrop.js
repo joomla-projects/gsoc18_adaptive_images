@@ -13,7 +13,7 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 		var image = document.getElementById('image-preview');
 		
 		// Initiate the cropper for gathering the focus point
-		Joomla.MediaManager.Edit.smartcrop = new Cropper(image, {
+		Joomla.MediaManager.Edit.smartcrop.cropper = new Cropper(image, { 
 			viewMode: 1,
 			responsive: false,
 			restore: true,
