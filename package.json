@@ -361,8 +361,8 @@
       "responsifyjs": {
         "name": "responsifyjs",
         "js": {
-          "dist/cropper.js": "responsify.js",
-          "dist/cropper.min.js": "responsify.min.js"
+          "dist/responsify.js": "responsify.js",
+          "dist/responsify.min.js": "responsify.min.js"
         },
         "dependencies": [],
         "licenseFilename": ""
