@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Plugin\CMSPlugin;
+use Joomla\CMS\HTML\HTMLHelper;
 
 /**
  * Adaptive Image Plugin
@@ -40,6 +41,10 @@ class PlgContentAdaptiveImage extends CMSPlugin
 	 */
 	public function onContentPrepare($context, &$row, &$params, $page = 0)
 	{
+
+		// Add ResponsifyJS into the client page
+		HTMLHelper::_('script', 'media/vendor/responsifyjs/responsify.min.js', ['version' => 'auto', 'relative' => false]);
+		
 		// Don't run this plugin when the content is being indexed
 		if ($context === 'com_finder.indexer')
 		{
