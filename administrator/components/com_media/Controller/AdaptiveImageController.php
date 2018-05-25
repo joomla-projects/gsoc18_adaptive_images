@@ -44,22 +44,37 @@ class AdaptiveImageController extends BaseController // implements AdaptiveImage
 
 	public function execute($task)
 	{
-		$dataFocus = array(
-			"data-focus-top" => 0.5,
-			"data-focus-left" => 0.4,			
-			"data-focus-bottom" => 0.3,
-			"data-focus-right" => 0.2
-		);
+
+		$this->app->setHeader('Content-Type', 'application/json');
 
 		$filePath = $this->imageSrc();
 
-		$this->setFocus($dataFocus,$filePath);
+		if ( $task == "setfocus" ) 
+		{
+			$dataFocus = array (
+				"data-focus-top" => 0.5,
+				"data-focus-left" => 0.4,			
+				"data-focus-bottom" => 0.3,
+				"data-focus-right" => 0.2
+			);
+	
+			$this->setFocus($dataFocus, $filePath);
+		}
+		elseif ( $task == "getfocus" )
+		{
+			$this->getFocus($filePath);
+		}
+		
+		$this->app->close();
+
 	}
 
 
 	/** 
 	 * 
 	 * Function to set the focus point
+	 * 
+	 * index.php?option=com_media&task=adaptiveimage.setfocus&path=/images/sampledata/fruitshop/bananas_1.jpg
 	 * 
 	 * @param array $dataFocus Array of the values of diffrent focus point
 	 * 
@@ -121,11 +136,33 @@ class AdaptiveImageController extends BaseController // implements AdaptiveImage
 	 * 
 	 * Function to get the focus point
 	 * 
+	 * index.php?option=com_media&task=adaptiveimage.getfocus&path=/images/sampledata/fruitshop/bananas_1.jpg
+	 * 
 	*/
 
 	public function getFocus($imgSrc)
 	{
+		$openFileRead = fopen($this->dataLocation, "r");
 
+		if ( !filesize($this->dataLocation) )
+		{
+			return false;
+		}
+
+		$prevData = fread($openFileRead, filesize($this->dataLocation));
+		
+		fclose($openFileRead);
+
+		$prevData = json_decode($prevData, true);
+
+		if ( $prevData[$imgSrc] )
+		{
+			echo json_encode($prevData[$imgSrc]);
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	/**
@@ -143,5 +180,5 @@ class AdaptiveImageController extends BaseController // implements AdaptiveImage
 
 		return $src;
 	}
-	
+
 }
