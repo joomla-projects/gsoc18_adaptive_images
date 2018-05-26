@@ -43,8 +43,8 @@ class PlgContentAdaptiveImage extends CMSPlugin
 	{
 
 		// Add ResponsifyJS into the client page
-		HTMLHelper::_('script', 'media/vendor/responsifyjs/responsify.min.js', ['version' => 'auto', 'relative' => false]);
-		
+		HTMLHelper::_('script', 'media/vendor/responsifyjs/responsify.js', ['version' => 'auto', 'relative' => false]);
+
 		// Don't run this plugin when the content is being indexed
 		if ($context === 'com_finder.indexer')
 		{
@@ -77,7 +77,24 @@ class PlgContentAdaptiveImage extends CMSPlugin
 
 		foreach($images[0] as $key => $image)
 		{
-			$focus = "data-focus-left=\"\" data-focus-top=\"\" data-focus-right=\"\" data-focus-bottom=\"\" />";
+			// clean path of the image $src[1].
+			preg_match('(src="([^"]+)")', $image, $src);
+
+			$getUrl = JURI::base().'index.php?option=com_content&task=adaptiveimage.getfocus&path=/'.$src[1];
+			
+			$data = file_get_contents($getUrl);
+
+			if ( !$data )
+			{
+				break;
+			}
+
+			$data = json_decode($data, true);
+
+			$focus = "data-focus-left	=	\"".$data['data-focus-left']	."\"
+					data-focus-top		=	\"".$data['data-focus-top']		."\"
+					data-focus-right	=	\"".$data['data-focus-right']	."\" 
+					data-focus-bottom	=	\"".$data['data-focus-bottom']	."\" />";
 
 			$newTag = str_replace("/>", $focus, $image);
 

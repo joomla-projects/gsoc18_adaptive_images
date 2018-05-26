@@ -58,6 +58,26 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 			initSmartCrop(mediaData);
 		},
 		Deactivate: function () {
+			var path = getQueryVariable('path');
+			path = path.split(':');
+			path = '/images' + path[1];
+			/*
+			var data = {
+					'data-focus-top' : Joomla.MediaManager.Edit.smartcrop.cropper.top,
+					'data-focus-left' : Joomla.MediaManager.Edit.smartcrop.cropper.left,
+					'data-focus-bottom' : Joomla.MediaManager.Edit.smartcrop.cropper.bottom,
+					'data-focus-right' : Joomla.MediaManager.Edit.smartcrop.cropper.right
+			};
+			*/
+			var data = "&data-focus-top="+Joomla.MediaManager.Edit.smartcrop.cropper.top+
+					"&data-focus-left="+Joomla.MediaManager.Edit.smartcrop.cropper.left+
+					"&data-focus-bottom="+Joomla.MediaManager.Edit.smartcrop.cropper.bottom+
+					"&data-focus-right="+Joomla.MediaManager.Edit.smartcrop.cropper.right;
+			var xhr = new XMLHttpRequest();
+			var url = window.location.origin+"/adaptive_images/index.php?option=com_content&task=adaptiveimage.setfocus&path="+path;
+			url += data;
+			xhr.open("GET", url, true);
+			xhr.send();
             if (!Joomla.MediaManager.Edit.smartcrop.cropper) {
 				return;
 			}
@@ -65,4 +85,17 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 			Joomla.MediaManager.Edit.smartcrop.cropper.destroy();
 		}
 	};
+
+	function getQueryVariable(variable) {
+		var query = window.location.search.substring(1);
+		var vars = query.split('&');
+		for (var i = 0; i < vars.length; i++) {
+			var pair = vars[i].split('=');
+			if (decodeURIComponent(pair[0]) == variable) {
+				return decodeURIComponent(pair[1]);
+			}
+		}
+		return false;
+	};
+
 })();

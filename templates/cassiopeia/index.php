@@ -41,6 +41,8 @@ HTMLHelper::_('script', 'template.js', ['version' => 'auto', 'relative' => true]
 // Load custom Javascript file
 HTMLHelper::_('script', 'user.js', ['version' => 'auto', 'relative' => true]);
 
+//HTMLHelper::_('script', 'media/vendor/responsifyjs/responsify.js', ['relative' => false]);
+
 // Load template CSS file
 HTMLHelper::_('stylesheet', 'template.css', ['version' => 'auto', 'relative' => true]);
 
@@ -81,6 +83,19 @@ $this->setMetaData('viewport', 'width=device-width, initial-scale=1');
 	<jdoc:include type="metas" />
 	<jdoc:include type="styles" />
 	<jdoc:include type="scripts" />
+	<script>
+
+		$(window).on('load', function() {
+    		$('img').responsify();
+		});
+		  
+		  
+		$(window).resize(function(){
+    		$('img').responsify();
+		});
+		  
+		  </script>
+
 </head>
 
 <body class="site-grid site <?php echo $option
