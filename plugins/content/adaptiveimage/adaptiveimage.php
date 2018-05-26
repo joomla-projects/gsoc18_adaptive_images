@@ -70,34 +70,43 @@ class PlgContentAdaptiveImage extends CMSPlugin
 	 */
 	protected function insertFocus(&$text, &$params)
 	{
-		
+		// Regular Expression from <img> tags in article
 		$searchImage = '(<img[^>]+>)';
 
+		// Match pattern and return array into $images
 		preg_match_all($searchImage, $text, $images);
 
+		// Process image one by one
 		foreach($images[0] as $key => $image)
 		{
-			// clean path of the image $src[1].
+			// clean path of the image and store in $src[1].
 			preg_match('(src="([^"]+)")', $image, $src);
 
-			$getUrl = JURI::base().'index.php?option=com_content&task=adaptiveimage.getfocus&path=/'.$src[1];
+			// URL of the adaptive image controller
+			$getUrl = JURI::base() . 'index.php?option=com_content&task=adaptiveimage.getfocus&path=/'.$src[1];
 			
+			// Getting the data returned by the controller
 			$data = file_get_contents($getUrl);
 
+			// If no data is found exit loop
 			if ( !$data )
 			{
 				break;
 			}
 
+			// Converts JSON data into php array
 			$data = json_decode($data, true);
 
+			// Inserting data into respective attibutes
 			$focus = "data-focus-left	=	\"".$data['data-focus-left']	."\"
 					data-focus-top		=	\"".$data['data-focus-top']		."\"
 					data-focus-right	=	\"".$data['data-focus-right']	."\" 
 					data-focus-bottom	=	\"".$data['data-focus-bottom']	."\" />";
 
+			// Adding attributes in the <img> tag
 			$newTag = str_replace("/>", $focus, $image);
 
+			// Replaceing the previous <img> tag with new one.
 			$text = str_replace($image, $newTag, $text);
 		}
 		
