@@ -17,7 +17,7 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 			viewMode: 1,
 			responsive: false,
 			restore: true,
-			autoCrop: false,
+			autoCrop: true,
 			movable: true,
 			zoomable: false,
 			rotatable: false,
