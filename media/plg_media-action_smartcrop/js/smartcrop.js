@@ -61,14 +61,6 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 			var path = getQueryVariable('path');
 			path = path.split(':');
 			path = '/images' + path[1];
-			/*
-			var data = {
-					'data-focus-top' : Joomla.MediaManager.Edit.smartcrop.cropper.top,
-					'data-focus-left' : Joomla.MediaManager.Edit.smartcrop.cropper.left,
-					'data-focus-bottom' : Joomla.MediaManager.Edit.smartcrop.cropper.bottom,
-					'data-focus-right' : Joomla.MediaManager.Edit.smartcrop.cropper.right
-			};
-			*/
 			var data = "&data-focus-top="+Joomla.MediaManager.Edit.smartcrop.cropper.top+
 					"&data-focus-left="+Joomla.MediaManager.Edit.smartcrop.cropper.left+
 					"&data-focus-bottom="+Joomla.MediaManager.Edit.smartcrop.cropper.bottom+
