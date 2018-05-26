@@ -17,18 +17,6 @@ use Joomla\CMS\Response\JsonResponse;
 \JLoader::import('joomla.filesystem.file');
 
 /**
- * 
- * Interface for the Adaptive Image Class
- * 
- */
-/*
-interface AdaptiveImageInterface
-{
-	public function setFocus($imageSrc);
-	public function getFocus($imageSrc, $dataFocus);
-}
-*/
-/**
  * Adaptive Image Controller Class
  * 
  * Used to get the focus point and save it into filesystem
