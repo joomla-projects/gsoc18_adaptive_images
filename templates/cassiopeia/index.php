@@ -89,11 +89,13 @@ $this->setMetaData('viewport', 'width=device-width, initial-scale=1');
 	<script>
 
 		$(window).on('load', function() {
+			$(".adaptiveimg").removeAttr( "style" )
     		$(".adaptiveimg").responsify();
 		});
 		  
 		  
 		$(window).resize(function(){
+			$(".adaptiveimg").removeAttr( "style" )
     		$(".adaptiveimg").responsify();
 		})
 		  
