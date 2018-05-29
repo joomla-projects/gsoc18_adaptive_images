@@ -101,7 +101,8 @@ class PlgContentAdaptiveImage extends CMSPlugin
 			$focus = "data-focus-left	=	\"".$data['data-focus-left']	."\"
 					data-focus-top		=	\"".$data['data-focus-top']		."\"
 					data-focus-right	=	\"".$data['data-focus-right']	."\" 
-					data-focus-bottom	=	\"".$data['data-focus-bottom']	."\" />";
+					data-focus-bottom	=	\"".$data['data-focus-bottom']	."\" 
+					class = \"adaptiveimg\"/>";
 
 			// Adding attributes in the <img> tag
 			$newTag = str_replace("/>", $focus, $image);
