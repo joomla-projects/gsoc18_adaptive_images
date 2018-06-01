@@ -12,20 +12,64 @@ namespace Joomla\Component\Content\Site\Controller;
 defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Controller\BaseController;
-use Joomla\CMS\Response\JsonResponse;
 
 \JLoader::import('joomla.filesystem.file');
 
 /**
+ * Adaptive Image Interface.
+ *
+ * @since 4.0.0
+ */
+
+interface AdaptiveImageInterface {
+
+	/**
+	 * Pubic function for storeing the focus points
+	 * to the file system.
+	 * 
+	 * @param array $dataFocus Focus point selected
+	 * @param string $filePath Path of the image
+	 * 
+	 * @return void
+	 * 
+	 * @since 4.0.0
+	 */
+	public function setFocus($dataFocus,$filePath);
+
+	/**
+	 * Public function for getting the focus point
+	 * from the file system
+	 * 
+	 * @param string $imgSrc Path of the image
+	 * 
+	 * @return string
+	 * 
+	 * @since 4.0.0
+	 */
+	public function getFocus($imgSrc);
+
+	/**
+	 * Public functions for takeing giving the full
+	 * source of the file.
+	 * 
+	 * @return string
+	 * 
+	 * @since 4.0.0
+	 */
+	public function imageSrc();
+
+}
+
+/**
  * Adaptive Image Controller Class
  * 
- * Used to get the focus point and save it into filesystem
+ * Used to set the focus point and save it into filesystem
  * 
- * Used to set the focus point while rendering the page on the frontend
+ * Used to get the focus point while rendering the page on the frontend
  *
  * @since  4.0.0
  */
-class AdaptiveImageController extends BaseController // implements AdaptiveImageInterface
+class AdaptiveImageController extends BaseController  implements AdaptiveImageInterface
 {
 
 	protected $dataLocation = JPATH_PLUGINS . '/media-action/smartcrop/data/focus.json';
@@ -162,7 +206,7 @@ class AdaptiveImageController extends BaseController // implements AdaptiveImage
 	 *
 	 * @since   4.0.0
 	 */
-	private function imageSrc()
+	public function imageSrc()
 	{
 		$src = $this->input->getString('path');
 
