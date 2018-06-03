@@ -72,12 +72,14 @@ interface AdaptiveImageInterface {
 class AdaptiveImageController extends BaseController  implements AdaptiveImageInterface
 {
 
-	protected $dataLocation = JPATH_PLUGINS . '/media-action/smartcrop/data/focus.json';
+	protected $dataLocation = JPATH_PLUGINS . '/media-action/smartcrop/focus.json';
 
 	public function execute($task)
 	{
 
 		$this->app->setHeader('Content-Type', 'application/json');
+
+		$this->checkStorage($this->dataLocation);
 
 		$filePath = $this->imageSrc();
 
@@ -211,6 +213,23 @@ class AdaptiveImageController extends BaseController  implements AdaptiveImageIn
 		$src = $this->input->getString('path');
 
 		return $src;
+	}
+
+	/**
+	 * Check whether the file exist
+	 * 
+	 * @param string $dataLocation location of storage file
+	 * 
+	 * @return boolean
+	 * 
+	 * @since 4.0.0
+	 */
+	private function checkStorage( $dataLocation )
+	{
+		if (!file_exists($dataLocation))
+		{
+			touch($dataLocation);
+		}
 	}
 
 }
