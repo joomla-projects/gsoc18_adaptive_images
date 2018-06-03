@@ -19,7 +19,7 @@
 /.htaccess
 /web.config
 /.php_cs.cache
-/plugins/media-action/smartcrop/data/focus.json
+/plugins/media-action/smartcrop/focus.json
 
 
 # Test Related Files #
