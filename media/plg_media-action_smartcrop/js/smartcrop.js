@@ -66,7 +66,7 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 					"&data-focus-bottom="+Joomla.MediaManager.Edit.smartcrop.cropper.bottom+
 					"&data-focus-right="+Joomla.MediaManager.Edit.smartcrop.cropper.right;
 			var xhr = new XMLHttpRequest();
-			var url = window.location.origin+"/adaptive_images/index.php?option=com_content&task=adaptiveimage.setfocus&path="+path;
+			var url = resolveBaseUrl() +"/index.php?option=com_content&task=adaptiveimage.setfocus&path="+path;
 			url += data;
 			xhr.open("GET", url, true);
 			xhr.send();
@@ -89,5 +89,14 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 		}
 		return false;
 	};
+
+	function resolveBaseUrl() {
+		var basePath = window.location.origin;
+		var url = window.location.pathname.split('/');
+		if (url[1]!='administrator') {
+			return basePath+"/"+url[1];
+		}
+		return basePath;
+	}
 
 })();
