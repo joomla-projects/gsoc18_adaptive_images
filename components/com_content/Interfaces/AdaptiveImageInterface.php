@@ -14,7 +14,7 @@ defined('_JEXEC') or die;
 /**
  * Adaptive Image Interface.
  *
- * @since 4.0.0
+ * @since  4.0.0
  */
 interface AdaptiveImageInterface
 {

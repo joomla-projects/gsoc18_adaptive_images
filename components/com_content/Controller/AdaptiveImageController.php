@@ -72,19 +72,18 @@ class AdaptiveImageController extends BaseController  implements AdaptiveImageIn
 
 	}
 
-
 	/**
-	 *
 	 * Function to set the focus point
 	 *
 	 * index.php?option=com_media&task=adaptiveimage.setfocus&path=/images/sampledata/fruitshop/bananas_1.jpg
 	 *
-	 * @param   array  $dataFocus Array of the values of diffrent focus point
+	 * @param   array   $dataFocus  Array of the values of diffrent focus point
 	 *
-	 * @param   string $filePath  Full path for the file
+	 * @param   string  $filePath   Full path for the file
 	 *
-	 * @return boolean
+	 * @return  boolean
 	 *
+	 * @since 4.0.0
 	 */
 	public function setFocus($dataFocus,$filePath)
 	{
@@ -134,13 +133,12 @@ class AdaptiveImageController extends BaseController  implements AdaptiveImageIn
 	}
 
 	/**
-	 *
 	 * Function to get the focus point
 	 * index.php?option=com_media&task=adaptiveimage.getfocus&path=/images/sampledata/fruitshop/bananas_1.jpg
 	 *
-	 * @param   string $imgSrc Image Path
+	 * @param   string  $imgSrc  Image Path
 	 *
-	 * @return boolean
+	 * @return  boolean
 	 *
 	 * @since 4.0.0
 	 */
@@ -188,9 +186,9 @@ class AdaptiveImageController extends BaseController  implements AdaptiveImageIn
 	/**
 	 * Check whether the file exist
 	 *
-	 * @param   string $dataLocation location of storage file
+	 * @param   string  $dataLocation  location of storage file
 	 *
-	 * @return boolean
+	 * @return  boolean
 	 *
 	 * @since 4.0.0
 	 */

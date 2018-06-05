@@ -31,8 +31,8 @@ class PlgContentAdaptiveImage extends CMSPlugin
 	 * Plugin that inserts focus points into the image.
 	 *
 	 * @param   string   $context  The context of the content being passed to the plugin.
-	 * @param   mixed    $row      An object with a "text" property.
-	 * @param   mixed    $params   Additional parameters.
+	 * @param   mixed    &$row     An object with a "text" property.
+	 * @param   mixed    &$params  Additional parameters.
 	 * @param   integer  $page     Optional page number. Unused. Defaults to zero.
 	 *
 	 * @return  boolean	True on success.
@@ -60,9 +60,8 @@ class PlgContentAdaptiveImage extends CMSPlugin
 	/**
 	 * Inserts focus points into the image.
 	 *
-	 * @param   string  $text    HTML string.
-	 * @param   mixed   $params  Additional parameters. Parameter "mode" (integer, default 1)
-	 *                             replaces addresses with "mailto:" links if nonzero.
+	 * @param   string  &$text    HTML string.
+	 * @param   mixed   &$params  Additional parameters.
 	 *
 	 * @return  boolean  True on success.
 	 */
