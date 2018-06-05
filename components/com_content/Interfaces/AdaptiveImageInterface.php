@@ -22,8 +22,8 @@ interface AdaptiveImageInterface
 	 * Pubic function for storeing the focus points
 	 * to the file system.
 	 *
-	 * @param   array  $dataFocus Focus point selected
-	 * @param   string $filePath  Path of the image
+	 * @param   array   $dataFocus  Focus point selected
+	 * @param   string  $filePath   Path of the image
 	 *
 	 * @return void
 	 *
@@ -35,7 +35,7 @@ interface AdaptiveImageInterface
 	 * Public function for getting the focus point
 	 * from the file system
 	 *
-	 * @param   string $imgSrc Path of the image
+	 * @param   string  $imgSrc  Path of the image
 	 *
 	 * @return string
 	 *
