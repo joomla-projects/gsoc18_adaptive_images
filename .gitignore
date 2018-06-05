@@ -21,7 +21,6 @@
 /.php_cs.cache
 /plugins/media-action/smartcrop/focus.json
 
-
 # Test Related Files #
 /phpunit.xml
 

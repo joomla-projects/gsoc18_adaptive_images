@@ -21,17 +21,17 @@ use Joomla\CMS\MVC\Controller\BaseController;
  * @since 4.0.0
  */
 
-interface AdaptiveImageInterface {
-
+interface AdaptiveImageInterface
+{
 	/**
 	 * Pubic function for storeing the focus points
 	 * to the file system.
-	 * 
+	 *
 	 * @param array $dataFocus Focus point selected
 	 * @param string $filePath Path of the image
-	 * 
+	 *
 	 * @return void
-	 * 
+	 *
 	 * @since 4.0.0
 	 */
 	public function setFocus($dataFocus,$filePath);
@@ -39,11 +39,11 @@ interface AdaptiveImageInterface {
 	/**
 	 * Public function for getting the focus point
 	 * from the file system
-	 * 
+	 *
 	 * @param string $imgSrc Path of the image
-	 * 
+	 *
 	 * @return string
-	 * 
+	 *
 	 * @since 4.0.0
 	 */
 	public function getFocus($imgSrc);
@@ -51,9 +51,9 @@ interface AdaptiveImageInterface {
 	/**
 	 * Public functions for takeing giving the full
 	 * source of the file.
-	 * 
+	 *
 	 * @return string
-	 * 
+	 *
 	 * @since 4.0.0
 	 */
 	public function imageSrc();
@@ -62,9 +62,9 @@ interface AdaptiveImageInterface {
 
 /**
  * Adaptive Image Controller Class
- * 
+ *
  * Used to set the focus point and save it into filesystem
- * 
+ *
  * Used to get the focus point while rendering the page on the frontend
  *
  * @since  4.0.0
@@ -83,39 +83,39 @@ class AdaptiveImageController extends BaseController  implements AdaptiveImageIn
 
 		$filePath = $this->imageSrc();
 
-		if ( $task == "setfocus" ) 
+		if ( $task == "setfocus" )
 		{
 			$dataFocus = array (
 				"data-focus-top" => $_GET['data-focus-top'],
-				"data-focus-left" => $_GET['data-focus-left'],			
+				"data-focus-left" => $_GET['data-focus-left'],
 				"data-focus-bottom" => $_GET['data-focus-bottom'],
 				"data-focus-right" => $_GET['data-focus-right']
 			);
-	
+
 			$this->setFocus($dataFocus, $filePath);
 		}
 		elseif ( $task == "getfocus" )
 		{
 			$this->getFocus($filePath);
 		}
-		
+
 		$this->app->close();
 
 	}
 
 
-	/** 
-	 * 
+	/**
+	 *
 	 * Function to set the focus point
-	 * 
+	 *
 	 * index.php?option=com_media&task=adaptiveimage.setfocus&path=/images/sampledata/fruitshop/bananas_1.jpg
-	 * 
+	 *
 	 * @param array $dataFocus Array of the values of diffrent focus point
-	 * 
+	 *
 	 * @param string $filePath Full path for the file
-	 * 
+	 *
 	 * @return boolean
-	 * 
+	 *
 	*/
 
 	public function setFocus($dataFocus,$filePath)
@@ -128,13 +128,13 @@ class AdaptiveImageController extends BaseController  implements AdaptiveImageIn
 				"data-focus-right" => $dataFocus['data-focus-right']
 			)
 		);
-		
+
 		if (filesize($this->dataLocation)){
 
 			$openFileRead = fopen($this->dataLocation, "r");
 
 			$prevData = fread($openFileRead, filesize($this->dataLocation));
-		
+
 			fclose($openFileRead);
 
 			$prevData = json_decode($prevData, true);
@@ -167,11 +167,11 @@ class AdaptiveImageController extends BaseController  implements AdaptiveImageIn
 	}
 
 	/**
-	 * 
+	 *
 	 * Function to get the focus point
-	 * 
+	 *
 	 * index.php?option=com_media&task=adaptiveimage.getfocus&path=/images/sampledata/fruitshop/bananas_1.jpg
-	 * 
+	 *
 	*/
 
 	public function getFocus($imgSrc)
@@ -184,7 +184,7 @@ class AdaptiveImageController extends BaseController  implements AdaptiveImageIn
 		}
 
 		$prevData = fread($openFileRead, filesize($this->dataLocation));
-		
+
 		fclose($openFileRead);
 
 		$prevData = json_decode($prevData, true);
@@ -201,7 +201,7 @@ class AdaptiveImageController extends BaseController  implements AdaptiveImageIn
 
 	/**
 	 * Get the imageSrc.
-	 * 
+	 *
 	 * index.php?option=com_media&task=adaptiveimage.setfocus&path=/images/sampledata/fruitshop/bananas_1.jpg
 	 *
 	 * @return  string
@@ -217,11 +217,11 @@ class AdaptiveImageController extends BaseController  implements AdaptiveImageIn
 
 	/**
 	 * Check whether the file exist
-	 * 
+	 *
 	 * @param string $dataLocation location of storage file
-	 * 
+	 *
 	 * @return boolean
-	 * 
+	 *
 	 * @since 4.0.0
 	 */
 	private function checkStorage( $dataLocation )
