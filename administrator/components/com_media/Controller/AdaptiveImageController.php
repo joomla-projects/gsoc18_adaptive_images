@@ -1,18 +1,18 @@
 <?php
 /**
- * @package     Joomla
- * @subpackage  com_content
+ * @package     Joomla.Administrator
+ * @subpackage  com_media
  *
  * @copyright   Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace Joomla\Component\Content\Site\Controller;
+namespace Joomla\Component\Media\Administrator\Controller;
 
 defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Controller\BaseController;
-use Joomla\Component\Content\Site\Interfaces\AdaptiveImageInterface;
+use Joomla\Component\Media\Administrator\Interfaces\AdaptiveImageInterface;
 
 \JLoader::import('joomla.filesystem.file');
 
@@ -34,7 +34,7 @@ class AdaptiveImageController extends BaseController  implements AdaptiveImageIn
 	 *
 	 * @since 4.0.0
 	 */
-	protected $dataLocation = JPATH_PLUGINS . '/media-action/smartcrop/focus.json';
+	protected static $dataLocation = JPATH_PLUGINS . '/media-action/smartcrop/focus.json';
 	/**
 	 * Execute a task by triggering a method in the derived class.
 	 *
@@ -48,7 +48,7 @@ class AdaptiveImageController extends BaseController  implements AdaptiveImageIn
 	{
 		$this->app->setHeader('Content-Type', 'application/json');
 
-		$this->checkStorage($this->dataLocation);
+		$this->checkStorage(static::$dataLocation);
 
 		$filePath = $this->imageSrc();
 
@@ -63,15 +63,10 @@ class AdaptiveImageController extends BaseController  implements AdaptiveImageIn
 
 			$this->setFocus($dataFocus, $filePath);
 		}
-		elseif ($task == "getfocus")
-		{
-			$this->getFocus($filePath);
-		}
 
 		$this->app->close();
 
 	}
-
 	/**
 	 * Function to set the focus point
 	 *
@@ -96,11 +91,11 @@ class AdaptiveImageController extends BaseController  implements AdaptiveImageIn
 			)
 		);
 
-		if (filesize($this->dataLocation))
+		if (filesize(static::$dataLocation))
 		{
-			$openFileRead = fopen($this->dataLocation, "r");
+			$openFileRead = fopen(static::$dataLocation, "r");
 
-			$prevData = fread($openFileRead, filesize($this->dataLocation));
+			$prevData = fread($openFileRead, filesize(static::$dataLocation));
 
 			fclose($openFileRead);
 
@@ -111,7 +106,7 @@ class AdaptiveImageController extends BaseController  implements AdaptiveImageIn
 			$prevData[$filePath]["data-focus-bottom"] = $dataFocus['data-focus-bottom'];
 			$prevData[$filePath]["data-focus-right"] = $dataFocus['data-focus-right'];
 
-			$openFileWrite = fopen($this->dataLocation, "w");
+			$openFileWrite = fopen(static::$dataLocation, "w");
 
 			fwrite($openFileWrite, json_encode($prevData));
 
@@ -119,7 +114,7 @@ class AdaptiveImageController extends BaseController  implements AdaptiveImageIn
 		}
 		else
 		{
-			$openFile = fopen($this->dataLocation, "w");
+			$openFile = fopen(static::$dataLocation, "w");
 
 			$JSONdata = json_encode($newEntry);
 
@@ -134,24 +129,23 @@ class AdaptiveImageController extends BaseController  implements AdaptiveImageIn
 
 	/**
 	 * Function to get the focus point
-	 * index.php?option=com_media&task=adaptiveimage.getfocus&path=/images/sampledata/fruitshop/bananas_1.jpg
 	 *
 	 * @param   string  $imgSrc  Image Path
 	 *
-	 * @return  boolean
+	 * @return  array
 	 *
 	 * @since 4.0.0
 	 */
 	public function getFocus($imgSrc)
 	{
-		$openFileRead = fopen($this->dataLocation, "r");
+		$openFileRead = fopen(static::$dataLocation, "r");
 
-		if (!filesize($this->dataLocation))
+		if (!filesize(static::$dataLocation))
 		{
 			return false;
 		}
 
-		$prevData = fread($openFileRead, filesize($this->dataLocation));
+		$prevData = fread($openFileRead, filesize(static::$dataLocation));
 
 		fclose($openFileRead);
 
@@ -159,7 +153,7 @@ class AdaptiveImageController extends BaseController  implements AdaptiveImageIn
 
 		if (array_key_exists($imgSrc, $prevData))
 		{
-			echo json_encode($prevData[$imgSrc]);
+			return json_encode($prevData[$imgSrc]);
 		}
 		else
 		{

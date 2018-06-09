@@ -11,6 +11,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\Component\Media\Administrator\Controller\AdaptiveImageController;
 
 /**
  * Adaptive Image Plugin
@@ -79,11 +80,11 @@ class PlgContentAdaptiveImage extends CMSPlugin
 			// Clean path of the image and store in $src[1].
 			preg_match('(src="([^"]+)")', $image, $src);
 
-			// URL of the adaptive image controller
-			$getUrl = JURI::base() . 'index.php?option=com_content&task=adaptiveimage.getfocus&path=/' . $src[1];
-
-			// Getting the data returned by the controller
-			$data = file_get_contents($getUrl);
+			// Image Path
+			$imgPath = "/" . $src[1];
+			
+			// Takeing Focus Points
+			$data = AdaptiveImageController::getFocus($imgPath);
 
 			// If no data is found exit loop
 			if (!$data)

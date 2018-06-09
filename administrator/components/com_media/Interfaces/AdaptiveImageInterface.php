@@ -1,13 +1,13 @@
 <?php
 /**
- * @package     Joomla
- * @subpackage  com_content
+ * @package     Joomla.Administrator
+ * @subpackage  com_media
  *
  * @copyright   Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace Joomla\Component\Content\Site\Interfaces;
+namespace Joomla\Component\Media\Administrator\Interfaces;
 
 defined('_JEXEC') or die;
 
