@@ -7,16 +7,16 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace Joomla\Component\Media\Administrator\Interfaces;
+namespace Joomla\Component\Media\Administrator\FocusStore;
 
 defined('_JEXEC') or die;
 
 /**
- * Adaptive Image Interface.
+ * Focus Store Interface.
  *
  * @since  4.0.0
  */
-interface AdaptiveImageInterface
+interface FocusStoreInterface
 {
 	/**
 	 * Pubic function for storeing the focus points
@@ -42,15 +42,5 @@ interface AdaptiveImageInterface
 	 * @since 4.0.0
 	 */
 	public function getFocus($imgSrc);
-
-	/**
-	 * Public functions for takeing giving the full
-	 * source of the file.
-	 *
-	 * @return string
-	 *
-	 * @since 4.0.0
-	 */
-	public function imageSrc();
 
 }

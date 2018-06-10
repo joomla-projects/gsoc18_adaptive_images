@@ -84,7 +84,8 @@ class PlgContentAdaptiveImage extends CMSPlugin
 			$imgPath = "/" . $src[1];
 			
 			// Takeing Focus Points
-			$data = AdaptiveImageController::getFocus($imgPath);
+			$obj = new AdaptiveImageController;
+			$data = $obj->execute("getfocus", $imgPath);
 
 			// If no data is found exit loop
 			if (!$data)
