@@ -88,26 +88,25 @@ class PlgContentAdaptiveImage extends CMSPlugin
 			$data = $obj->execute("getfocus", $imgPath);
 
 			// If no data is found exit loop
-			if (!$data)
+			if ($data)
 			{
-				break;
+				// Converts JSON data into php array
+				$data = json_decode($data, true);
+
+				// Inserting data into respective attibutes
+				$focus = "data-focus-left	=	\"" . $data['data-focus-left'] . "\"
+						data-focus-top		=	\"" . $data['data-focus-top'] . "\"
+						data-focus-right	=	\"" . $data['data-focus-right'] . "\"
+						data-focus-bottom	=	\"" . $data['data-focus-bottom'] . "\"
+						class = \"adaptiveimg\"/>";
+
+				// Adding attributes in the <img> tag
+				$newTag = str_replace("/>", $focus, $image);
+
+				// Replaceing the previous <img> tag with new one.
+				$text = str_replace($image, $newTag, $text);
 			}
 
-			// Converts JSON data into php array
-			$data = json_decode($data, true);
-
-			// Inserting data into respective attibutes
-			$focus = "data-focus-left	=	\"" . $data['data-focus-left'] . "\"
-					data-focus-top		=	\"" . $data['data-focus-top'] . "\"
-					data-focus-right	=	\"" . $data['data-focus-right'] . "\"
-					data-focus-bottom	=	\"" . $data['data-focus-bottom'] . "\"
-					class = \"adaptiveimg\"/>";
-
-			// Adding attributes in the <img> tag
-			$newTag = str_replace("/>", $focus, $image);
-
-			// Replaceing the previous <img> tag with new one.
-			$text = str_replace($image, $newTag, $text);
 		}
 
 		return true;
