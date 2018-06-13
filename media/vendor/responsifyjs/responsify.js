@@ -2,11 +2,13 @@
   $.fn.responsify = function() {
     return this.each(function() {
       var owidth, oheight,
+          mwidth, mheight,
           twidth, theight,
           fx1, fy1, fx2, fy2,
           width, height, top, left,
           $this = $(this);
-
+      mwidth = $this[0].naturalWidth;
+      mheight = $this[0].naturalHeight;
       owidth = $this.width();
       oheight = $this.height();
       twidth = $this.parent().width();
@@ -52,10 +54,14 @@
         }
       }
       $this.parent().css({
-        "overflow": "hidden"
+        "overflow": "hidden",
+        "max-height" : mheight,
+        "max-width" : mwidth
       })
       $this.css({
         "position": "relative",
+        "max-height" : mheight,
+        "max-width" : mwidth,
         "height": height,
         "width": width,
         "left": left,
