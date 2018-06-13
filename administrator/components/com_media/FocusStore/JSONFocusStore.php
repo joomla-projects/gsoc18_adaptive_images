@@ -25,7 +25,7 @@ use Joomla\Component\Media\Administrator\FocusStore\FocusStoreInterface;
  *
  * @since  4.0.0
  */
-class JSONFocusStoreClass implements FocusStoreInterface
+class JSONFocusStore implements FocusStoreInterface
 {
 	/**
 	 * Location for file storing the data focus point.
@@ -141,7 +141,7 @@ class JSONFocusStoreClass implements FocusStoreInterface
 	 * Check whether the file exist
 	 *
 	 * @param   string  $dataLocation  location of storage file
-	 *
+	 * 
 	 * @return  boolean
 	 *
 	 * @since 4.0.0
@@ -151,8 +151,8 @@ class JSONFocusStoreClass implements FocusStoreInterface
 		if (!file_exists($dataLocation))
 		{
 			touch($dataLocation);
-
-			return true;
 		}
+
+		return true;
 	}
 }

@@ -11,7 +11,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\Component\Media\Administrator\Controller\AdaptiveImageController;
+use Joomla\Component\Media\Administrator\FocusStore\JSONFocusStore;
 
 /**
  * Adaptive Image Plugin
@@ -84,13 +84,12 @@ class PlgContentAdaptiveImage extends CMSPlugin
 			$imgPath = "/" . $src[1];
 			
 			// Takeing Focus Points
-			$obj = new AdaptiveImageController;
-			$data = $obj->execute("getfocus", $imgPath);
+			$storage = new JSONFocusStore;
+			$data = $storage->getFocus($imgPath);
 
 			// If no data is found exit loop
 			if ($data)
 			{
-				// Converts JSON data into php array
 				$data = json_decode($data, true);
 
 				// Inserting data into respective attibutes
