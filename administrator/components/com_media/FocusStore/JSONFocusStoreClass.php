@@ -25,7 +25,7 @@ use Joomla\Component\Media\Administrator\FocusStore\FocusStoreInterface;
  *
  * @since  4.0.0
  */
-class FocusStoreClass implements FocusStoreInterface
+class JSONFocusStoreClass implements FocusStoreInterface
 {
 	/**
 	 * Location for file storing the data focus point.
