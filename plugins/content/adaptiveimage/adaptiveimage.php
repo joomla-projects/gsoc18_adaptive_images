@@ -11,7 +11,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\Component\Media\Administrator\FocusStore\JSONFocusStore;
+use Joomla\Component\Media\Administrator\AdaptiveImage\JSONFocusStore;
 
 /**
  * Adaptive Image Plugin

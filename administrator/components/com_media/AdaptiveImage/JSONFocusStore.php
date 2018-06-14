@@ -7,12 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace Joomla\Component\Media\Administrator\FocusStore;
+namespace Joomla\Component\Media\Administrator\AdaptiveImage;
 
 defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Controller\BaseController;
-use Joomla\Component\Media\Administrator\FocusStore\FocusStoreInterface;
+use Joomla\Component\Media\Administrator\AdaptiveImage\FocusStoreInterface;
 
 \JLoader::import('joomla.filesystem.file');
 

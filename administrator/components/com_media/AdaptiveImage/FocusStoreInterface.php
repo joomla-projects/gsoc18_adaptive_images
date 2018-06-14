@@ -7,7 +7,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace Joomla\Component\Media\Administrator\FocusStore;
+namespace Joomla\Component\Media\Administrator\AdaptiveImage;
 
 defined('_JEXEC') or die;
 
