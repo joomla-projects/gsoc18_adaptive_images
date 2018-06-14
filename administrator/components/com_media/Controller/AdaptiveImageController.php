@@ -12,6 +12,7 @@ namespace Joomla\Component\Media\Administrator\Controller;
 defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Controller\BaseController;
+use Joomla\Component\Media\Administrator\AdaptiveImage\FocusStoreInterface;
 use Joomla\Component\Media\Administrator\AdaptiveImage\JSONFocusStore;
 
 /**
@@ -28,14 +29,13 @@ class AdaptiveImageController extends BaseController
 	/**
 	 * Execute a task by triggering a method in the derived class.
 	 *
-	 * @param   string  $task     The task to perform.
-	 * @param   string  $imgPath  Path of the image.
+	 * @param   string  $task  The task to perform.
 	 *
-	 * @return  mixed   The value returned by the called method.
+	 * @return  boolean
 	 *
 	 * @since   4.0.0
 	 */
-	public function execute($task, $imgPath = null)
+	public function execute($task)
 	{
 		if ($task == "setfocus")
 		{
@@ -47,7 +47,7 @@ class AdaptiveImageController extends BaseController
 				"data-focus-right" => $_GET['data-focus-right']
 			);
 			$storage = new JSONFocusStore;
-			$storage->setFocus($dataFocus, $imgPath);
+			return $this->performTask($storage, $dataFocus, $imgPath);
 		}
 
 	}
@@ -66,5 +66,26 @@ class AdaptiveImageController extends BaseController
 
 		return $src;
 	}
-
+	/**
+	 * Call to the method of respective	class for the respective object passed
+	 * 
+	 * @param   FocusStoreInterface  $storage    Storage Object
+	 * @param   Array                $dataFocus  All the data focus points for image
+	 * @param   String               $imgPath    Image Path
+	 * 
+	 * @return boolean
+	 * 
+	 * @since 4.0.0
+	 */
+	protected function performTask(FocusStoreInterface $storage, $dataFocus, $imgPath)
+	{
+		if  ( $storage->setFocus($dataFocus, $imgPath) )
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 }

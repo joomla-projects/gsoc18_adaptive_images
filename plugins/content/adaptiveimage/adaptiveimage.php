@@ -11,6 +11,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\Component\Media\Administrator\AdaptiveImage\FocusStoreInterface;
 use Joomla\Component\Media\Administrator\AdaptiveImage\JSONFocusStore;
 
 /**
@@ -57,7 +58,6 @@ class PlgContentAdaptiveImage extends CMSPlugin
 
 		return $this->insertFocus($row, $params);
 	}
-
 	/**
 	 * Inserts focus points into the image.
 	 *
@@ -74,6 +74,8 @@ class PlgContentAdaptiveImage extends CMSPlugin
 		// Match pattern and return array into $images
 		preg_match_all($searchImage, $text, $images);
 
+		$storage = new JSONFocusStore;
+
 		// Process image one by one
 		foreach ($images[0] as $key => $image)
 		{
@@ -84,8 +86,7 @@ class PlgContentAdaptiveImage extends CMSPlugin
 			$imgPath = "/" . $src[1];
 			
 			// Takeing Focus Points
-			$storage = new JSONFocusStore;
-			$data = $storage->getFocus($imgPath);
+			$data = $this->performTask($storage, $imgPath);
 
 			// If no data is found exit loop
 			if ($data)
@@ -109,5 +110,19 @@ class PlgContentAdaptiveImage extends CMSPlugin
 		}
 
 		return true;
+	}
+	/**
+	 * Call to the method of respective	class for the respective object passed
+	 * 
+	 * @param   FocusStoreInterface  $storage  Storage Object
+	 * @param   String               $imgPath  Image Path
+	 * 
+	 * @return  Array
+	 * 
+	 * @since 4.0.0
+	 */
+	protected function performTask(FocusStoreInterface $storage, $imgPath)
+	{
+		return $storage->getFocus($imgPath);
 	}
 }
