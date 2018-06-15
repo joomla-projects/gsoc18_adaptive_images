@@ -79,13 +79,6 @@ class AdaptiveImageController extends BaseController
 	 */
 	protected function performTask(FocusStoreInterface $storage, $dataFocus, $imgPath)
 	{
-		if  ( $storage->setFocus($dataFocus, $imgPath) )
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return $storage->setFocus($dataFocus, $imgPath);
 	}
 }
