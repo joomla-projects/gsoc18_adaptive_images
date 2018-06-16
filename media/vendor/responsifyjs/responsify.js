@@ -55,13 +55,15 @@
       }
       $this.parent().css({
         "overflow": "hidden",
-        "max-height" : mheight,
-        "max-width" : mwidth
+        "height":"50%",
+        "width":"50%",
+        "max-height":mheight,
+        "max-width":mwidth
       })
       $this.css({
         "position": "relative",
-        "max-height" : mheight,
-        "max-width" : mwidth,
+        "max-height":mheight,
+        "max-width":mwidth,
         "height": height,
         "width": width,
         "left": left,
