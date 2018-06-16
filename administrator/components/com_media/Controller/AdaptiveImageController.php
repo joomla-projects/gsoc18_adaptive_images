@@ -39,32 +39,17 @@ class AdaptiveImageController extends BaseController
 	{
 		if ($task == "setfocus")
 		{
-			$imgPath = $this->imageSrc();
+			$imgPath = $this->input->getString('path');
 			$dataFocus = array (
-				"data-focus-top" => $_GET['data-focus-top'],
-				"data-focus-left" => $_GET['data-focus-left'],
-				"data-focus-bottom" => $_GET['data-focus-bottom'],
-				"data-focus-right" => $_GET['data-focus-right']
+				"data-focus-top" 	=> $this->input->getFloat('data-focus-top'),
+				"data-focus-left"	=> $this->input->getFloat('data-focus-left'),
+				"data-focus-bottom" => $this->input->getFloat('data-focus-bottom'),
+				"data-focus-right"	=> $this->input->getFloat('data-focus-right')
 			);
 			$storage = new JSONFocusStore;
 			return $this->performTask($storage, $dataFocus, $imgPath);
 		}
 
-	}
-	/**
-	 * Get the Image Path.
-	 *
-	 * index.php?option=com_media&task=adaptiveimage.getfocus&path=/images/sampledata/fruitshop/bananas_1.jpg
-	 *
-	 * @return  string
-	 *
-	 * @since   4.0.0
-	 */
-	public function imageSrc()
-	{
-		$src = $this->input->getString('path');
-
-		return $src;
 	}
 	/**
 	 * Call to the method of respective	class for the respective object passed
