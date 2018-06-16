@@ -86,7 +86,7 @@ class PlgContentAdaptiveImage extends CMSPlugin
 			$imgPath = "/" . $src[1];
 			
 			// Takeing Focus Points
-			$data = $this->performTask($storage, $imgPath);
+			$data = $storage->getFocus($imgPath);
 
 			// If no data is found exit loop
 			if ($data)
@@ -110,19 +110,5 @@ class PlgContentAdaptiveImage extends CMSPlugin
 		}
 
 		return true;
-	}
-	/**
-	 * Call to the method of respective	class for the respective object passed
-	 * 
-	 * @param   FocusStoreInterface  $storage  Storage Object
-	 * @param   String               $imgPath  Image Path
-	 * 
-	 * @return  Array
-	 * 
-	 * @since 4.0.0
-	 */
-	protected function performTask(FocusStoreInterface $storage, $imgPath)
-	{
-		return $storage->getFocus($imgPath);
 	}
 }
