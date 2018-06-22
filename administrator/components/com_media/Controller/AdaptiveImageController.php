@@ -12,8 +12,8 @@ namespace Joomla\Component\Media\Administrator\Controller;
 defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Controller\BaseController;
-use Joomla\Component\Media\Administrator\AdaptiveImage\FocusStoreInterface;
-use Joomla\Component\Media\Administrator\AdaptiveImage\JSONFocusStore;
+use Joomla\CMS\AdaptiveImage\FocusStoreInterface;
+use Joomla\CMS\AdaptiveImage\JSONFocusStore;
 
 /**
  * Adaptive Image Controller Class
