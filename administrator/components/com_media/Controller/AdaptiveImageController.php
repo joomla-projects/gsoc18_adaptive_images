@@ -12,7 +12,6 @@ namespace Joomla\Component\Media\Administrator\Controller;
 defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Controller\BaseController;
-use Joomla\CMS\AdaptiveImage\FocusStoreInterface;
 use Joomla\CMS\AdaptiveImage\JSONFocusStore;
 
 /**
@@ -47,23 +46,7 @@ class AdaptiveImageController extends BaseController
 				"data-focus-right"	=> $this->input->getFloat('data-focus-right')
 			);
 			$storage = new JSONFocusStore;
-			return $this->performTask($storage, $dataFocus, $imgPath);
+			return $storage->setFocus($dataFocus, $imgPath);
 		}
-
-	}
-	/**
-	 * Call to the method of respective	class for the respective object passed
-	 * 
-	 * @param   FocusStoreInterface  $storage    Storage Object
-	 * @param   Array                $dataFocus  All the data focus points for image
-	 * @param   String               $imgPath    Image Path
-	 * 
-	 * @return boolean
-	 * 
-	 * @since 4.0.0
-	 */
-	protected function performTask(FocusStoreInterface $storage, $dataFocus, $imgPath)
-	{
-		return $storage->setFocus($dataFocus, $imgPath);
 	}
 }
