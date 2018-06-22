@@ -50,16 +50,16 @@ class JSONFocusStore implements FocusStoreInterface
 	 *
 	 * @param   array   $dataFocus  Array of the values of diffrent focus point
 	 *
-	 * @param   string  $filePath   Full path for the file
+	 * @param   string  $imgPath   Full path for the file
 	 *
 	 * @return  boolean
 	 *
 	 * @since 4.0.0
 	 */
-	public function setFocus($dataFocus,$filePath)
+	public function setFocus($dataFocus,$imgPath)
 	{
 		$newEntry = array(
-			$filePath => array(
+			$imgPath => array(
 				"data-focus-top" => $dataFocus['data-focus-top'],
 				"data-focus-left" => $dataFocus['data-focus-left'],
 				"data-focus-bottom" => $dataFocus['data-focus-bottom'],
@@ -77,10 +77,10 @@ class JSONFocusStore implements FocusStoreInterface
 
 			$prevData = json_decode($prevData, true);
 
-			$prevData[$filePath]["data-focus-top"] = $dataFocus['data-focus-top'];
-			$prevData[$filePath]["data-focus-left"] = $dataFocus['data-focus-left'];
-			$prevData[$filePath]["data-focus-bottom"] = $dataFocus['data-focus-bottom'];
-			$prevData[$filePath]["data-focus-right"] = $dataFocus['data-focus-right'];
+			$prevData[$imgPath]["data-focus-top"] = $dataFocus['data-focus-top'];
+			$prevData[$imgPath]["data-focus-left"] = $dataFocus['data-focus-left'];
+			$prevData[$imgPath]["data-focus-bottom"] = $dataFocus['data-focus-bottom'];
+			$prevData[$imgPath]["data-focus-right"] = $dataFocus['data-focus-right'];
 
 			$openFileWrite = fopen(static::$dataLocation, "w");
 
@@ -106,13 +106,13 @@ class JSONFocusStore implements FocusStoreInterface
 	/**
 	 * Function to get the focus point
 	 *
-	 * @param   string  $imgSrc  Image Path
+	 * @param   string  $imgPath  Image Path
 	 *
 	 * @return  array
 	 *
 	 * @since 4.0.0
 	 */
-	public function getFocus($imgSrc)
+	public function getFocus($imgPath)
 	{
 		$openFileRead = fopen(static::$dataLocation, "r");
 
@@ -127,9 +127,9 @@ class JSONFocusStore implements FocusStoreInterface
 
 		$prevData = json_decode($prevData, true);
 
-		if (array_key_exists($imgSrc, $prevData))
+		if (array_key_exists($imgPath, $prevData))
 		{
-			return json_encode($prevData[$imgSrc]);
+			return json_encode($prevData[$imgPath]);
 		}
 		else
 		{
