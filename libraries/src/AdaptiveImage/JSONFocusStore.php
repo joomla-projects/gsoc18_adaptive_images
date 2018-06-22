@@ -13,8 +13,6 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\AdaptiveImage\FocusStoreInterface;
 
-\JLoader::import('joomla.filesystem.file');
-
 /**
  * Focus Store Class
  *
@@ -69,11 +67,7 @@ class JSONFocusStore implements FocusStoreInterface
 
 		if (filesize(static::$dataLocation))
 		{
-			$openFileRead = fopen(static::$dataLocation, "r");
-
-			$prevData = fread($openFileRead, filesize(static::$dataLocation));
-
-			fclose($openFileRead);
+			$prevData = file_get_contents(static::$dataLocation);
 
 			$prevData = json_decode($prevData, true);
 
@@ -82,21 +76,11 @@ class JSONFocusStore implements FocusStoreInterface
 			$prevData[$imgPath]["data-focus-bottom"] = $dataFocus['data-focus-bottom'];
 			$prevData[$imgPath]["data-focus-right"] = $dataFocus['data-focus-right'];
 
-			$openFileWrite = fopen(static::$dataLocation, "w");
-
-			fwrite($openFileWrite, json_encode($prevData));
-
-			fclose($openFileWrite);
+			file_put_contents(static::$dataLocation, json_encode($prevData));
 		}
 		else
 		{
-			$openFile = fopen(static::$dataLocation, "w");
-
-			$JSONdata = json_encode($newEntry);
-
-			fwrite($openFile, $JSONdata);
-
-			fclose($openFile);
+			file_put_contents(static::$dataLocation, json_encode($newEntry));
 		}
 
 		return true;
@@ -114,16 +98,12 @@ class JSONFocusStore implements FocusStoreInterface
 	 */
 	public function getFocus($imgPath)
 	{
-		$openFileRead = fopen(static::$dataLocation, "r");
-
 		if (!filesize(static::$dataLocation))
 		{
 			return false;
 		}
 
-		$prevData = fread($openFileRead, filesize(static::$dataLocation));
-
-		fclose($openFileRead);
+		$prevData = file_get_contents(static::$dataLocation);
 
 		$prevData = json_decode($prevData, true);
 
