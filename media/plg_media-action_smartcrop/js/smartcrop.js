@@ -25,14 +25,24 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 			minContainerWidth: image.offsetWidth,
 			minContainerHeight: image.offsetHeight,
 			crop: function (e) {
+				var left, top,
+					canvas_width, canvas_height,
+					image_width, image_height;
+
+				left = Math.round(e.detail.x);
+				top = Math.round(e.detail.y);
+				canvas_width = Math.round(e.detail.width);
+				canvas_height = Math.round(e.detail.height);
+
+				image_width = image.naturalWidth;
+				image_height = image.naturalHeight;
 
 				// Top, Bottom, Left, right are the data focus points
-                var canvas_data = this.cropper.getCropBoxData();
-                Joomla.MediaManager.Edit.smartcrop.cropper.top = (canvas_data.top / image.naturalHeight).toFixed(2);
-                Joomla.MediaManager.Edit.smartcrop.cropper.bottom = ((canvas_data.height + canvas_data.top) / image.naturalHeight).toFixed(2);
-                Joomla.MediaManager.Edit.smartcrop.cropper.left = (canvas_data.left / image.naturalWidth).toFixed(2);
-				Joomla.MediaManager.Edit.smartcrop.cropper.right = ((canvas_data.width + canvas_data.left) / image.naturalWidth).toFixed(2);
-				
+                Joomla.MediaManager.Edit.smartcrop.cropper.top = (top / image_height).toFixed(2);
+                Joomla.MediaManager.Edit.smartcrop.cropper.bottom = ((canvas_height + top) / image_height).toFixed(2);
+                Joomla.MediaManager.Edit.smartcrop.cropper.left = (left / image_width).toFixed(2);
+				Joomla.MediaManager.Edit.smartcrop.cropper.right = ((canvas_width + left) / image_width).toFixed(2);
+				 
 				// Setting the computed focus point into the input fields
 				document.getElementById('jform_data_focus_top').value = Joomla.MediaManager.Edit.smartcrop.cropper.top;
 				document.getElementById('jform_data_focus_bottom').value = Joomla.MediaManager.Edit.smartcrop.cropper.bottom;
