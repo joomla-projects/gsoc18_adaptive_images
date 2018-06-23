@@ -42,7 +42,7 @@ class PlgContentAdaptiveImage extends CMSPlugin
 	{
 
 		// Add ResponsifyJS into the client page
-		// HTMLHelper::_('script', 'media/vendor/responsifyjs/responsify.js', ['version' => 'auto', 'relative' => false]);
+		HTMLHelper::_('script', 'media/plg_media-action_smartcrop/js/responsify.min.js', ['version' => 'auto', 'relative' => false]);
 
 		// Don't run this plugin when the content is being indexed
 		if ($context === 'com_finder.indexer')
