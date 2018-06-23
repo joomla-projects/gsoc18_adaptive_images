@@ -59,6 +59,16 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 				window.dispatchEvent(new Event('mediaManager.history.point'));
 			}
 		});
+
+		// Wait for the image to load its data
+		image.addEventListener('load', function() {
+
+			// Set default aspect ratio after numeric check, option has a dummy value
+			var defaultCropFactor = image.naturalWidth / image.naturalHeight;
+			Joomla.MediaManager.Edit.smartcrop.cropper.setAspectRatio(defaultCropFactor);
+
+		});
+
 		var setFocusData = function(){
 			var data, path, 
 				xhr, url;
@@ -83,7 +93,7 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 			xhr.send();
 		}
 		setFocusData();
-    }
+    };
 
     // Register the Events
 	Joomla.MediaManager.Edit.smartcrop = {

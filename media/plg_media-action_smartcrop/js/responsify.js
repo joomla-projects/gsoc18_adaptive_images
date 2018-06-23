@@ -16,9 +16,9 @@ function responsify(item){
   fy1 = Number(item.attributes['data-focus-top'].value);
   fx2 = Number(item.attributes['data-focus-right'].value);
   fy2 = Number(item.attributes['data-focus-bottom'].value);
-  if( owidth/oheight > twidth/theight ) {
+  if( owidth/oheight >= twidth/theight ) {
     var fwidth = (fx2-fx1) * owidth;
-    if ( fwidth/oheight > twidth/theight ) {
+    if ( fwidth/oheight >= twidth/theight ) {
       height = oheight*twidth/fwidth;
       width = owidth*twidth/fwidth;
       left = -fx1*width;
@@ -32,7 +32,7 @@ function responsify(item){
   }
   else {
     var fheight = (fy2-fy1) * oheight;
-    if ( fheight/owidth > theight/twidth ) {
+    if ( fheight/owidth >= theight/twidth ) {
       width = owidth*theight/fheight;
       height = oheight*theight/fheight;
       top = -fy1*height;
