@@ -48,7 +48,7 @@ class JSONFocusStore implements FocusStoreInterface
 	 *
 	 * @param   array   $dataFocus  Array of the values of diffrent focus point
 	 *
-	 * @param   string  $imgPath   Full path for the file
+	 * @param   string  $imgPath    Full path for the file
 	 *
 	 * @return  boolean
 	 *
