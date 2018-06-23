@@ -30,23 +30,39 @@ class AdaptiveImageController extends BaseController
 	 *
 	 * @param   string  $task  The task to perform.
 	 *
-	 * @return  boolean
+	 * @return  mixed
 	 *
 	 * @since   4.0.0
 	 */
 	public function execute($task)
 	{
-		if ($task == "setfocus")
+		switch ($task)
 		{
-			$imgPath = $this->input->getString('path');
-			$dataFocus = array (
-				"data-focus-top" 	=> $this->input->getFloat('data-focus-top'),
-				"data-focus-left"	=> $this->input->getFloat('data-focus-left'),
-				"data-focus-bottom" => $this->input->getFloat('data-focus-bottom'),
-				"data-focus-right"	=> $this->input->getFloat('data-focus-right')
-			);
-			$storage = new JSONFocusStore;
-			return $storage->setFocus($dataFocus, $imgPath);
+			case "setfocus" :
+				$imgPath = $this->input->getString('path');
+				$dataFocus = array (
+					"data-focus-top" 	=> $this->input->getFloat('data-focus-top'),
+					"data-focus-left"	=> $this->input->getFloat('data-focus-left'),
+					"data-focus-bottom" => $this->input->getFloat('data-focus-bottom'),
+					"data-focus-right"	=> $this->input->getFloat('data-focus-right'),
+					"box-left"			=> $this->input->getInt('box-left'),
+					"box-top"			=> $this->input->getInt('box-top'),
+					"box-width"			=> $this->input->getInt('box-width'),
+					"box-height"		=> $this->input->getInt('box-height')
+				);
+				$storage = new JSONFocusStore;
+				return $storage->setFocus($dataFocus, $imgPath);
+				break;
+			case "cropBoxData" :
+				$this->app->setHeader('Content-Type', 'application/json');
+				$imgPath = $this->input->getString('path');
+				$storage = new JSONFocusStore;
+				echo $storage->getFocus($imgPath);
+				$this->app->close();
+				return true;
+				break;
+			default :
+				return false;
 		}
 	}
 }
