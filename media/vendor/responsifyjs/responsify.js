@@ -48,8 +48,8 @@
       }
       $this.parent().css({
         "overflow": "hidden",
-        "max-height":mheight,
-        "max-width":mwidth
+        "max-width":mwidth,
+        "width":document.body.clientWidth
       })
       $this.css({
         "position": "relative",
