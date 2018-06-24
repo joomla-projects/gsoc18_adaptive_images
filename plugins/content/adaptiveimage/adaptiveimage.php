@@ -42,7 +42,7 @@ class PlgContentAdaptiveImage extends CMSPlugin
 	{
 
 		// Add ResponsifyJS into the client page
-		HTMLHelper::_('script', 'media/plg_media-action_smartcrop/js/responsify.min.js', ['version' => 'auto', 'relative' => false]);
+		HTMLHelper::_('script', 'media/plg_media-action_smartcrop/js/responsive-images.min.js', ['version' => 'auto', 'relative' => false]);
 
 		// Don't run this plugin when the content is being indexed
 		if ($context === 'com_finder.indexer')
@@ -93,10 +93,10 @@ class PlgContentAdaptiveImage extends CMSPlugin
 				$data = json_decode($data, true);
 
 				// Inserting data into respective attibutes
-				$focus = "data-focus-left	=	\"" . $data['data-focus-left'] . "\"
-						data-focus-top		=	\"" . $data['data-focus-top'] . "\"
-						data-focus-right	=	\"" . $data['data-focus-right'] . "\"
-						data-focus-bottom	=	\"" . $data['data-focus-bottom'] . "\"
+				$focus = "focus-x		=	\"" . $data['box-left'] . "\"
+						focus-y			=	\"" . $data['box-top'] . "\"
+						focus-width		=	\"" . $data['box-width'] . "\"
+						focus-height	=	\"" . $data['box-height'] . "\"
 						class = \"adaptiveimg\"/>";
 
 				// Adding attributes in the <img> tag
