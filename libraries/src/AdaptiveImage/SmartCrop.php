@@ -28,24 +28,24 @@ class SmartCrop
         $this->imgPath = $imgPath;
         $this->checkDir();
     }
-    public function compute($dataFocus, $finalDimentions)
+    public function compute($dataFocus, $finalWidth)
     {
         $fx = $dataFocus["box-left"];
         $fy = $dataFocus["box-top"];
         $fwidth = $dataFocus["box-width"];
         $fheight = $dataFocus["box-height"];
 
-        $twidth = $finalDimentions['width'];
-        $theight = $finalDimentions['height'];
-
         $mwidth = $this->image->getWidth();
         $mheight = $this->image->getHeight();
+
+        $twidth = $finalWidth;
+        $theight = $twidth*$mheight/$mwidth;
 
         if($twidth<$fwidth || $theight<$fheight)
         {
             //Scale down the selection.
             $finalImage = $this->image->crop($fwidth, $fheight, $fx, $fy);
-            $img = $finalImage->resize($twidth,$theight); 
+            $finalImage = $finalImage->resize($twidth,$theight); 
             $imgName = explode('/', $this->imgPath);
             $imgName = "/" . $twidth . "_" . $imgName[max(array_keys($imgName))];
             $path = $this->dataLocation . $imgName;

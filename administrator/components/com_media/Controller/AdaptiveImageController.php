@@ -67,12 +67,13 @@ class AdaptiveImageController extends BaseController
 				$imgPath = "/images/" . $this->input->getString('path');
 				$storage = new JSONFocusStore;
 				$dataFocus = json_decode($storage->getFocus($imgPath), true);
-				$finalDimentions = array(
-					"width" 	=> $this->input->getFloat('width'),
-					"height"	=> $this->input->getFloat('height')
-				);
-				$image = new SmartCrop(".." . $imgPath);
-				$image->compute($dataFocus, $finalDimentions);
+				//$finalWidth = $this->input->getFloat('width');
+				$width = array(360, 480, 768, 1024);
+				foreach ($width as $finalWidth)
+				{
+					$image = new SmartCrop(".." . $imgPath);
+					$image->compute($dataFocus, $finalWidth);
+				}
 			default :
 				return false;
 		}
