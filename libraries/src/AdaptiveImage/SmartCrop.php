@@ -18,21 +18,22 @@ use Joomla\Image\Image;
  */
 class SmartCrop
 {
-    public static $dataLocation = "/images/.cache";
-    public static $imgPath;
-    public static $image;
+    public $dataLocation = "../images/.cache";
+    public $imgPath;
+    public $image;
 
-    public function __construct($src)
+    public function __construct($imgPath)
     {
-        $this->image = new Image($src);
-        $this->imgPath = $src;
+        $this->image = new Image($imgPath);
+        $this->imgPath = $imgPath;
+        $this->checkDir();
     }
     public function compute($dataFocus, $finalDimentions)
     {
-        $fx = $dataFocus['box-left'];
-        $fy = $dataFocus['box-top'];
-        $fwidth = $dataFocus['box-width'];
-        $fheight = $dataFocus['box-height'];
+        $fx = $dataFocus["box-left"];
+        $fy = $dataFocus["box-top"];
+        $fwidth = $dataFocus["box-width"];
+        $fheight = $dataFocus["box-height"];
 
         $twidth = $finalDimentions['width'];
         $theight = $finalDimentions['height'];
@@ -43,7 +44,12 @@ class SmartCrop
         if($twidth<$fwidth || $theight<$fheight)
         {
             //Scale down the selection.
-            $this->image->resize($fwidth, $fheight);
+            $finalImage = $this->image->crop($fwidth, $fheight, $fx, $fy);
+            $img = $finalImage->resize($twidth,$theight); 
+            $imgName = explode('/', $this->imgPath);
+            $imgName = "/" . $twidth . "_" . $imgName[max(array_keys($imgName))];
+            $path = $this->dataLocation . $imgName;
+            $finalImage->toFile($path);
         }
         elseif ($twidth>=$mwidth || $theight>=$mheight)
         {
@@ -75,7 +81,19 @@ class SmartCrop
             {
                 $fy=0;
             }
-            $this->image->crop($fwidth, $fheight, $fx, $fy);
+            $finalImage = $this->image->crop($twidth, $theight, $fx, $fy);
+            $imgName = explode('/', $this->imgPath);
+            $imgName = "/" . $twidth . "_" . $imgName[max(array_keys($imgName))];
+            $path = $this->dataLocation . $imgName;
+            $finalImage->toFile($path);
+        }
+        return true;
+    }
+    public function checkDir()
+    {
+        if(!is_dir($this->dataLocation))
+        {
+            mkdir($this->dataLocation, 0777);
         }
         return true;
     }

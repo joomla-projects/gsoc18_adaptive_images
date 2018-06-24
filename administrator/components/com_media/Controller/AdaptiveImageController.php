@@ -13,6 +13,8 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\AdaptiveImage\JSONFocusStore;
+use Joomla\CMS\AdaptiveImage\SmartCrop;
+use Joomla\CMS\Uri\Uri;
 
 /**
  * Adaptive Image Controller Class
@@ -61,6 +63,16 @@ class AdaptiveImageController extends BaseController
 				$this->app->close();
 				return true;
 				break;
+			case "cropImage" :
+				$imgPath = "/images/" . $this->input->getString('path');
+				$storage = new JSONFocusStore;
+				$dataFocus = json_decode($storage->getFocus($imgPath), true);
+				$finalDimentions = array(
+					"width" 	=> $this->input->getFloat('width'),
+					"height"	=> $this->input->getFloat('height')
+				);
+				$image = new SmartCrop(".." . $imgPath);
+				$image->compute($dataFocus, $finalDimentions);
 			default :
 				return false;
 		}
