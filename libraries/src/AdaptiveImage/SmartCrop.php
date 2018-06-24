@@ -47,7 +47,12 @@ class SmartCrop
             $finalImage = $this->image->crop($fwidth, $fheight, $fx, $fy);
             $finalImage = $finalImage->resize($twidth,$theight); 
             $imgName = explode('/', $this->imgPath);
-            $imgName = "/" . $twidth . "_" . $imgName[max(array_keys($imgName))];
+            $name = "";
+            for($i=2;$i<=max(array_keys($imgName)) ;$i++)
+            {
+                $name = $name . "-" . $imgName[$i];
+            }
+            $imgName = "/" . $twidth . $name;
             $path = $this->dataLocation . $imgName;
             $finalImage->toFile($path);
         }
@@ -83,7 +88,12 @@ class SmartCrop
             }
             $finalImage = $this->image->crop($twidth, $theight, $fx, $fy);
             $imgName = explode('/', $this->imgPath);
-            $imgName = "/" . $twidth . "_" . $imgName[max(array_keys($imgName))];
+            $name = "";
+            for($i=2;$i<=max(array_keys($imgName)) ;$i++)
+            {
+                $name = $name . "-" . $imgName[$i];
+            }
+            $imgName = "/" . $twidth . $name;
             $path = $this->dataLocation . $imgName;
             $finalImage->toFile($path);
         }
