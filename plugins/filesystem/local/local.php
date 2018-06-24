@@ -3,7 +3,7 @@
  * @package     Joomla.Plugin
  * @subpackage  FileSystem.Local
  *
- * @copyright   Copyright (C) 2005 - 2017 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -87,6 +87,9 @@ class PlgFileSystemLocal extends CMSPlugin implements ProviderInterface
 			$directories = json_decode($directories);
 			list($directories) = $directories;
 		}
+
+		// TODO: This should be removed once there is proper support for namespaced plugins
+		JLoader::registerNamespace('\\Joomla\\Plugin\\Filesystem\\Local\\Adapter', __DIR__ . '/Adapter', false, true, 'psr4');
 
 		foreach ($directories as $directoryEntity)
 		{
