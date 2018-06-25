@@ -29,6 +29,14 @@ class PlgContentAdaptiveImage extends CMSPlugin
 	 */
 	protected $autoloadLanguage = true;
 	/**
+	 * Base path for cache images.
+	 * 
+	 * @var     string
+	 * 
+	 * @since   4.0.0
+	 */
+	protected $cacheDir = "./images/.cache";
+	/**
 	 * Plugin that inserts focus points into the image.
 	 *
 	 * @param   string   $context  The context of the content being passed to the plugin.
@@ -83,7 +91,21 @@ class PlgContentAdaptiveImage extends CMSPlugin
 
 			// Image Path
 			$imgPath = "/" . $src[1];
+
+			$imgName = explode("/", $imgPath);
+			$imgName = $imgName[max(array_keys($imgName))];
 			
+			$images = scandir($this->cacheDir);
+
+			$cacheImages = array();
+			foreach ($images as $key => $name)
+			{
+				if (strpos($name, $imgName))
+				{
+					array_push($cacheImages, $name);
+				}
+			}
+			/*
 			// Takeing Focus Points
 			$data = $storage->getFocus($imgPath);
 
@@ -101,10 +123,10 @@ class PlgContentAdaptiveImage extends CMSPlugin
 
 				// Adding attributes in the <img> tag
 				$newTag = str_replace("/>", $focus, $image);
-
+				
 				// Replaceing the previous <img> tag with new one.
 				$text = str_replace($image, $newTag, $text);
-			}
+			}*/
 
 		}
 
