@@ -13,6 +13,8 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\AdaptiveImage\JSONFocusStore;
+use Joomla\CMS\AdaptiveImage\SmartCrop;
+use Joomla\CMS\Uri\Uri;
 
 /**
  * Adaptive Image Controller Class
@@ -51,7 +53,9 @@ class AdaptiveImageController extends BaseController
 					"box-height"		=> $this->input->getInt('box-height')
 				);
 				$storage = new JSONFocusStore;
-				return $storage->setFocus($dataFocus, $imgPath);
+				$storage->setFocus($dataFocus, $imgPath);
+				$this->cropImage($imgPath);
+				return true;
 				break;
 			case "cropBoxData" :
 				$this->app->setHeader('Content-Type', 'application/json');
@@ -61,8 +65,25 @@ class AdaptiveImageController extends BaseController
 				$this->app->close();
 				return true;
 				break;
+			case "cropImage" :
+				$imgPath = "/images/" . $this->input->getString('path');
+				//$finalWidth = $this->input->getFloat('width');
+				$this->cropImage($imgPath);
+				return true;
+				break;
 			default :
 				return false;
+		}
+	}
+	public function cropImage($imgPath)
+	{
+		$storage = new JSONFocusStore;
+		$dataFocus = json_decode($storage->getFocus($imgPath), true);
+		$width = array(240, 360, 480, 768, 940, 1024);
+		foreach ($width as $finalWidth)
+		{
+			$image = new SmartCrop(".." . $imgPath);
+			$image->compute($dataFocus, $finalWidth);
 		}
 	}
 }

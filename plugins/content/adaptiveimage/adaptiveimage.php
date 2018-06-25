@@ -29,6 +29,14 @@ class PlgContentAdaptiveImage extends CMSPlugin
 	 */
 	protected $autoloadLanguage = true;
 	/**
+	 * Base path for cache images.
+	 * 
+	 * @var     string
+	 * 
+	 * @since   4.0.0
+	 */
+	protected $cacheDir = "./images/.cache";
+	/**
 	 * Plugin that inserts focus points into the image.
 	 *
 	 * @param   string   $context  The context of the content being passed to the plugin.
@@ -73,8 +81,6 @@ class PlgContentAdaptiveImage extends CMSPlugin
 		// Match pattern and return array into $images
 		preg_match_all($searchImage, $text, $images);
 
-		$storage = new JSONFocusStore;
-
 		// Process image one by one
 		foreach ($images[0] as $key => $image)
 		{
@@ -83,28 +89,41 @@ class PlgContentAdaptiveImage extends CMSPlugin
 
 			// Image Path
 			$imgPath = "/" . $src[1];
+
+			$imageName = explode("/", $imgPath);
+			$imageName = $imageName[max(array_keys($imageName))];
 			
-			// Takeing Focus Points
-			$data = $storage->getFocus($imgPath);
+			$images = scandir($this->cacheDir);
+			unset($images[0]);
+			unset($images[1]);
 
-			// If no data is found exit loop
-			if ($data)
+			$cacheImages = array();
+			foreach ($images as $key => $name)
 			{
-				$data = json_decode($data, true);
-
-				// Inserting data into respective attibutes
-				$focus = "focus-x		=	\"" . $data['box-left'] . "\"
-						focus-y			=	\"" . $data['box-top'] . "\"
-						focus-width		=	\"" . $data['box-width'] . "\"
-						focus-height	=	\"" . $data['box-height'] . "\"
-						class = \"adaptiveimg\"/>";
-
-				// Adding attributes in the <img> tag
-				$newTag = str_replace("/>", $focus, $image);
-
-				// Replaceing the previous <img> tag with new one.
-				$text = str_replace($image, $newTag, $text);
+				$imgWidth = explode("_", $name);
+				$imgName = explode(".", $imgWidth[1]);
+				$imgWidth = $imgWidth[0];
+				$extension = $imgName[1];
+				$imgName = base64_decode($imgName[0]) . "." . $extension;
+				
+				if (strpos($imgName, $imageName))
+				{
+					array_push($cacheImages, [
+						"width" => $imgWidth,
+						"name" => str_replace("./", "", $this->cacheDir) . "/" . $name
+					]);
+				}
 			}
+			
+			$element = "<picture>\n";
+			foreach ($cacheImages as $key => $attributes)
+			{
+				$source = "<source media=\"(min-width: " . $attributes["width"] . "px)\" srcset=\"" . $attributes["name"] . "\">\n";
+				$element .= $source;
+			}
+			$element .= $image . "\n</picture>";
+
+			$text = str_replace($image, $element, $text);
 
 		}
 
