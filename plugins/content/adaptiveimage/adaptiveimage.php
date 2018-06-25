@@ -114,6 +114,7 @@ class PlgContentAdaptiveImage extends CMSPlugin
 					array_push($cacheImages, $imgData);
 				}
 			}
+			arsort($cacheImages);
 
 			$element = "<picture>\n";
 			foreach ($cacheImages as $key => $attributes)
