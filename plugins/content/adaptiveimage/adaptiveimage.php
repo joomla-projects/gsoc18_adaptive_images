@@ -28,11 +28,12 @@ class PlgContentAdaptiveImage extends CMSPlugin
 	 * @since  4.0.0
 	 */
 	protected $autoloadLanguage = true;
+
 	/**
 	 * Base path for cache images.
-	 * 
+	 *
 	 * @var     string
-	 * 
+	 *
 	 * @since   4.0.0
 	 */
 	protected $cacheDir = "./images/.cache";
@@ -92,7 +93,7 @@ class PlgContentAdaptiveImage extends CMSPlugin
 
 			$imageName = explode("/", $imgPath);
 			$imageName = $imageName[max(array_keys($imageName))];
-			
+
 			$images = scandir($this->cacheDir);
 			unset($images[0]);
 			unset($images[1]);
@@ -105,16 +106,15 @@ class PlgContentAdaptiveImage extends CMSPlugin
 				$imgWidth = $imgWidth[0];
 				$extension = $imgName[1];
 				$imgName = base64_decode($imgName[0]) . "." . $extension;
-				
+
 				if (strpos($imgName, $imageName))
 				{
-					array_push($cacheImages, [
-						"width" => $imgWidth,
-						"name" => str_replace("./", "", $this->cacheDir) . "/" . $name
-					]);
+					$imgData["width"] = $imgWidth;
+					$imgData["name"]  = str_replace("./", "", $this->cacheDir) . "/" . $name;
+					array_push($cacheImages, $imgData);
 				}
 			}
-			
+
 			$element = "<picture>\n";
 			foreach ($cacheImages as $key => $attributes)
 			{

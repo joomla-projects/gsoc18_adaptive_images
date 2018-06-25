@@ -18,83 +18,111 @@ use Joomla\Image\Image;
  */
 class SmartCrop
 {
-    public $dataLocation = "../images/.cache";
-    public $imgPath;
-    public $image;
+	// Location for storing cache images
+	public $dataLocation = "../images/.cache";
 
-    public function __construct($imgPath)
-    {
-        $this->image = new Image($imgPath);
-        $this->imgPath = $imgPath;
-        $this->checkDir();
-    }
-    public function compute($dataFocus, $finalWidth)
-    {
-        $fx = $dataFocus["box-left"];
-        $fy = $dataFocus["box-top"];
-        $fwidth = $dataFocus["box-width"];
-        $fheight = $dataFocus["box-height"];
+	// Absolute image path
+	public $imgPath;
 
-        $mwidth = $this->image->getWidth();
-        $mheight = $this->image->getHeight();
+	// Image object
+	public $image;
+	/**
+	 * Initilize parent image class
+	 * 
+	 * @param   string  $imgPath  Image path
+	 *
+	 * @since 4.0.0
+	 */
+	public function __construct($imgPath)
+	{
+		$this->image = new Image($imgPath);
+		$this->imgPath = $imgPath;
+		$this->checkDir();
+	}
+	/**
+	 * Crop the image around focus point and save it
+	 * 
+	 * @param   array    $dataFocus   Array of data focus points
+	 * @param   integer  $finalWidth  Disired width
+	 *
+	 * @return boolean
+	 *
+	 * @since 4.0.0
+	 */
+	public function compute($dataFocus, $finalWidth)
+	{
+		$fx = $dataFocus["box-left"];
+		$fy = $dataFocus["box-top"];
+		$fwidth = $dataFocus["box-width"];
+		$fheight = $dataFocus["box-height"];
 
-        $twidth = $finalWidth;
-        $theight = $twidth*$mheight/$mwidth;
+		$mwidth = $this->image->getWidth();
+		$mheight = $this->image->getHeight();
 
-        if($twidth<$fwidth || $theight<$fheight)
-        {
-            //Scale down the selection.
-            $finalImage = $this->image->crop($fwidth, $fheight, $fx, $fy);
-            $finalImage = $finalImage->resize($twidth,$theight);
-            $imgPath = explode('.', $this->imgPath);
-            $imgName = "/" . $twidth . "_" . base64_encode($imgPath[2]) . "." . $imgPath[3];
-            $path = $this->dataLocation . $imgName;
-            $finalImage->toFile($path);
-        }
-        elseif ($twidth>=$mwidth || $theight>=$mheight)
-        {
-            //show original Image do nothing
-            $fx=0;
-            $fy=0;
-        }
-        else
-        {
-            $diff_x = ($twidth - $fwidth) / 2;
-            $fx = $fx - $diff_x;
-            $x2 = $fx + $twidth;
-            if ($x2>$mwidth)
-            {
-                $fx = $fx - ($x2-$mwidth);
-            }
-            elseif ($fx<0)
-            {
-                $fx=0;
-            }
-            $diff_y = ($theight - $fheight)/2;
-            $fy = $fy - $diff_y;
-            $y2 = $fy + $theight;
-            if ($y2>$mheight)
-            {
-                $fy = $fy - ($y2-$mheight);
-            }
-            elseif($fy<0)
-            {
-                $fy=0;
-            }
-            $finalImage = $this->image->crop($twidth, $theight, $fx, $fy);
-            $imgPath = explode('.', $this->imgPath);
-            $imgName = "/" . $twidth . "_" . base64_encode($imgPath[2]) . "." . $imgPath[3];
-            $path = $this->dataLocation . $imgName;
-            $finalImage->toFile($path);
-        }
-        return true;
-    }
-    public function checkDir()
-    {
-        if(!is_dir($this->dataLocation))
-        {
-            mkdir($this->dataLocation, 0777);
-        }
-        return true;
-    }
+		$twidth = $finalWidth;
+		$theight = $twidth*$mheight/$mwidth;
+
+		if ($twidth<$fwidth || $theight<$fheight)
+		{
+			// Scale down the selection.
+			$finalImage = $this->image->crop($fwidth, $fheight, $fx, $fy);
+			$finalImage = $finalImage->resize($twidth, $theight);
+			$imgPath = explode('.', $this->imgPath);
+			$imgName = "/" . $twidth . "_" . base64_encode($imgPath[2]) . "." . $imgPath[3];
+			$path = $this->dataLocation . $imgName;
+			$finalImage->toFile($path);
+		}
+		elseif ($twidth>=$mwidth || $theight>=$mheight)
+		{
+			// Show original Image do nothing
+			$fx=0;
+			$fy=0;
+		}
+		else
+		{
+			$diff_x = ($twidth - $fwidth) / 2;
+			$fx = $fx - $diff_x;
+			$x2 = $fx + $twidth;
+			if ($x2>$mwidth)
+			{
+				$fx = $fx - ($x2-$mwidth);
+			}
+			elseif ($fx<0)
+			{
+				$fx=0;
+			}
+			$diff_y = ($theight - $fheight)/2;
+			$fy = $fy - $diff_y;
+			$y2 = $fy + $theight;
+			if ($y2>$mheight)
+			{
+				$fy = $fy - ($y2-$mheight);
+			}
+			elseif ($fy<0)
+			{
+				$fy=0;
+			}
+			$finalImage = $this->image->crop($twidth, $theight, $fx, $fy);
+			$imgPath = explode('.', $this->imgPath);
+			$imgName = "/" . $twidth . "_" . base64_encode($imgPath[2]) . "." . $imgPath[3];
+			$path = $this->dataLocation . $imgName;
+			$finalImage->toFile($path);
+		}
+		return true;
+	}
+	/**
+	 * Check if the cache directory is present or not
+	 * 
+	 * @return  boolean
+	 * 
+	 * @since 4.0.0
+	 */
+	public function checkDir()
+	{
+		if (!is_dir($this->dataLocation))
+		{
+			mkdir($this->dataLocation, 0777);
+		}
+		return true;
+	}
 }

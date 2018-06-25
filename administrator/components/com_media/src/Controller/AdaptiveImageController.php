@@ -66,8 +66,10 @@ class AdaptiveImageController extends BaseController
 				return true;
 				break;
 			case "cropImage" :
+				// @TODO Resize image to any aspect ratio.
 				$imgPath = "/images/" . $this->input->getString('path');
-				//$finalWidth = $this->input->getFloat('width');
+				
+				// $finalWidth = $this->input->getFloat('width');
 				$this->cropImage($imgPath);
 				return true;
 				break;
@@ -75,6 +77,15 @@ class AdaptiveImageController extends BaseController
 				return false;
 		}
 	}
+	/**
+	 * Crop the images around the focus area
+	 * 
+	 * @param   string  $imgPath  image path
+	 * 
+	 * @return  boolean
+	 * 
+	 * @since 4.0.0 
+	 */
 	public function cropImage($imgPath)
 	{
 		$storage = new JSONFocusStore;
@@ -85,5 +96,6 @@ class AdaptiveImageController extends BaseController
 			$image = new SmartCrop(".." . $imgPath);
 			$image->compute($dataFocus, $finalWidth);
 		}
+		return true;
 	}
 }
