@@ -92,19 +92,40 @@ class PlgContentAdaptiveImage extends CMSPlugin
 			// Image Path
 			$imgPath = "/" . $src[1];
 
-			$imgName = explode("/", $imgPath);
-			$imgName = $imgName[max(array_keys($imgName))];
+			$imageName = explode("/", $imgPath);
+			$imageName = $imageName[max(array_keys($imageName))];
 			
 			$images = scandir($this->cacheDir);
+			unset($images[0]);
+			unset($images[1]);
 
 			$cacheImages = array();
 			foreach ($images as $key => $name)
 			{
-				if (strpos($name, $imgName))
+				$imgWidth = explode("_", $name);
+				$imgName = explode(".", $imgWidth[1]);
+				$imgWidth = $imgWidth[0];
+				$extension = $imgName[1];
+				$imgName = base64_decode($imgName[0]) . "." . $extension;
+				
+				if (strpos($imgName, $imageName))
 				{
-					array_push($cacheImages, $name);
+					array_push($cacheImages, [
+						"width" => $imgWidth,
+						"name" => str_replace("./", "", $this->cacheDir) . "/" . $name
+					]);
 				}
 			}
+			
+			$element = "<picture>\n";
+			foreach ($cacheImages as $key => $attributes)
+			{
+				$source = "<source media=\"(min-width: " . $attributes["width"] . "px)\" srcset=\"" . $attributes["name"] . "\">\n";
+				$element .= $source;
+			}
+
+			$element .= $image . "\n</picture>";
+			$text = str_replace($image, $element, $text);
 			/*
 			// Takeing Focus Points
 			$data = $storage->getFocus($imgPath);

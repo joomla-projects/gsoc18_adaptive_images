@@ -46,10 +46,9 @@ class SmartCrop
             //Scale down the selection.
             $finalImage = $this->image->crop($fwidth, $fheight, $fx, $fy);
             $finalImage = $finalImage->resize($twidth,$theight);
-            $imgName = explode('/', $this->imgPath);
-            $imgName = "/" . $twidth . "_" . $imgName[max(array_keys($imgName))];
+            $imgPath = explode('.', $this->imgPath);
+            $imgName = "/" . $twidth . "_" . base64_encode($imgPath[2]) . "." . $imgPath[3];
             $path = $this->dataLocation . $imgName;
-            echo $path;
             $finalImage->toFile($path);
         }
         elseif ($twidth>=$mwidth || $theight>=$mheight)
@@ -83,8 +82,8 @@ class SmartCrop
                 $fy=0;
             }
             $finalImage = $this->image->crop($twidth, $theight, $fx, $fy);
-            $imgName = explode('/', $this->imgPath);
-            $imgName = "/" . $twidth . "_" . $imgName[max(array_keys($imgName))];
+            $imgPath = explode('.', $this->imgPath);
+            $imgName = "/" . $twidth . "_" . base64_encode($imgPath[2]) . "." . $imgPath[3];
             $path = $this->dataLocation . $imgName;
             $finalImage->toFile($path);
         }
