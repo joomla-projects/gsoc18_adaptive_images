@@ -58,10 +58,6 @@ class JSONFocusStore implements FocusStoreInterface
 	{
 		$newEntry = array(
 			$imgPath => array(
-				"data-focus-top" 	=> $dataFocus['data-focus-top'],
-				"data-focus-left" 	=> $dataFocus['data-focus-left'],
-				"data-focus-bottom" => $dataFocus['data-focus-bottom'],
-				"data-focus-right" 	=> $dataFocus['data-focus-right'],
 				"box-left"			=> $dataFocus['box-left'],
 				"box-top"			=> $dataFocus['box-top'],
 				"box-width"			=> $dataFocus['box-width'],
@@ -75,10 +71,6 @@ class JSONFocusStore implements FocusStoreInterface
 
 			$prevData = json_decode($prevData, true);
 
-			$prevData[$imgPath]["data-focus-top"] 		= $dataFocus['data-focus-top'];
-			$prevData[$imgPath]["data-focus-left"] 		= $dataFocus['data-focus-left'];
-			$prevData[$imgPath]["data-focus-bottom"] 	= $dataFocus['data-focus-bottom'];
-			$prevData[$imgPath]["data-focus-right"] 	= $dataFocus['data-focus-right'];
 			$prevData[$imgPath]["box-left"] 			= $dataFocus['box-left'];
 			$prevData[$imgPath]["box-top"] 				= $dataFocus['box-top'];
 			$prevData[$imgPath]["box-width"] 			= $dataFocus['box-width'];

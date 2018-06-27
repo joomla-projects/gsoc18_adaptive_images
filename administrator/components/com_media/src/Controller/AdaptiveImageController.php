@@ -43,10 +43,6 @@ class AdaptiveImageController extends BaseController
 			case "setfocus" :
 				$imgPath = $this->input->getString('path');
 				$dataFocus = array (
-					"data-focus-top" 	=> $this->input->getFloat('data-focus-top'),
-					"data-focus-left"	=> $this->input->getFloat('data-focus-left'),
-					"data-focus-bottom" => $this->input->getFloat('data-focus-bottom'),
-					"data-focus-right"	=> $this->input->getFloat('data-focus-right'),
 					"box-left"			=> $this->input->getInt('box-left'),
 					"box-top"			=> $this->input->getInt('box-top'),
 					"box-width"			=> $this->input->getInt('box-width'),
