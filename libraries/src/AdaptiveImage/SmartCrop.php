@@ -56,9 +56,11 @@ class SmartCrop
 		$fwidth = $dataFocus["box-width"];
 		$fheight = $dataFocus["box-height"];
 
+		// Max-Width and Max-Height of the images
 		$mwidth = $this->image->getWidth();
 		$mheight = $this->image->getHeight();
 
+		// Final width and height of the required image
 		$twidth = $finalWidth;
 		$theight = $twidth*$mheight/$mwidth;
 
@@ -67,22 +69,19 @@ class SmartCrop
 			// Scale down the selection.
 			$finalImage = $this->image->crop($fwidth, $fheight, $fx, $fy);
 			$finalImage = $finalImage->resize($twidth, $theight);
-			$imgPath = explode('.', $this->imgPath);
-			$imgName = "/" . $twidth . "_" . base64_encode($imgPath[2]) . "." . $imgPath[3];
-			$path = $this->dataLocation . $imgName;
-			$finalImage->toFile($path);
+
 		}
 		elseif ($twidth>=$mwidth || $theight>=$mheight)
 		{
 			// Show original Image do nothing
-			$fx=0;
-			$fy=0;
+			return true;
 		}
 		else
 		{
 			$diff_x = ($twidth - $fwidth) / 2;
 			$fx = $fx - $diff_x;
 			$x2 = $fx + $twidth;
+
 			if ($x2>$mwidth)
 			{
 				$fx = $fx - ($x2-$mwidth);
@@ -91,9 +90,11 @@ class SmartCrop
 			{
 				$fx=0;
 			}
+
 			$diff_y = ($theight - $fheight)/2;
 			$fy = $fy - $diff_y;
 			$y2 = $fy + $theight;
+
 			if ($y2>$mheight)
 			{
 				$fy = $fy - ($y2-$mheight);
@@ -102,12 +103,16 @@ class SmartCrop
 			{
 				$fy=0;
 			}
+
 			$finalImage = $this->image->crop($twidth, $theight, $fx, $fy);
-			$imgPath = explode('.', $this->imgPath);
-			$imgName = "/" . $twidth . "_" . base64_encode($imgPath[2]) . "." . $imgPath[3];
-			$path = $this->dataLocation . $imgName;
-			$finalImage->toFile($path);
+			
 		}
+		$imgPath = explode('.', $this->imgPath);
+		$imgName = "/" . $twidth . "_" . base64_encode($imgPath[2]) . "." . $imgPath[3];
+		$path = $this->dataLocation . $imgName;
+
+		$finalImage->toFile($path);
+		
 		return true;
 	}
 	/**
