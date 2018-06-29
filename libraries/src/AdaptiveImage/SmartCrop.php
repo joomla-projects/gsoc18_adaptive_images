@@ -35,6 +35,7 @@ class SmartCrop
 	 */
 	public function __construct($imgPath)
 	{
+		ini_set('memory_limit', '-1');
 		$this->image = new Image($imgPath);
 		$this->imgPath = $imgPath;
 		$this->checkDir();
@@ -112,6 +113,8 @@ class SmartCrop
 		$path = $this->dataLocation . $imgName;
 
 		$finalImage->toFile($path);
+
+		$finalImage->destroy();
 		
 		return true;
 	}
