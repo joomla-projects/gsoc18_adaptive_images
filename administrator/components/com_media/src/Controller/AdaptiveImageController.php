@@ -13,6 +13,8 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\AdaptiveImage\JSONFocusStore;
+use Joomla\CMS\AdaptiveImage\SmartCrop;
+use Joomla\CMS\Uri\Uri;
 
 /**
  * Adaptive Image Controller Class
@@ -41,17 +43,15 @@ class AdaptiveImageController extends BaseController
 			case "setfocus" :
 				$imgPath = $this->input->getString('path');
 				$dataFocus = array (
-					"data-focus-top" 	=> $this->input->getFloat('data-focus-top'),
-					"data-focus-left"	=> $this->input->getFloat('data-focus-left'),
-					"data-focus-bottom" => $this->input->getFloat('data-focus-bottom'),
-					"data-focus-right"	=> $this->input->getFloat('data-focus-right'),
 					"box-left"			=> $this->input->getInt('box-left'),
 					"box-top"			=> $this->input->getInt('box-top'),
 					"box-width"			=> $this->input->getInt('box-width'),
 					"box-height"		=> $this->input->getInt('box-height')
 				);
 				$storage = new JSONFocusStore;
-				return $storage->setFocus($dataFocus, $imgPath);
+				$storage->setFocus($dataFocus, $imgPath);
+				$this->cropImage($imgPath);
+				return true;
 				break;
 			case "cropBoxData" :
 				$this->app->setHeader('Content-Type', 'application/json');
@@ -61,8 +61,37 @@ class AdaptiveImageController extends BaseController
 				$this->app->close();
 				return true;
 				break;
+			case "cropImage" :
+				// @TODO Resize image to any aspect ratio.
+				$imgPath = "/images/" . $this->input->getString('path');
+				
+				// $finalWidth = $this->input->getFloat('width');
+				$this->cropImage($imgPath);
+				return true;
+				break;
 			default :
 				return false;
 		}
+	}
+	/**
+	 * Crop the images around the focus area
+	 * 
+	 * @param   string  $imgPath  image path
+	 * 
+	 * @return  boolean
+	 * 
+	 * @since 4.0.0 
+	 */
+	public function cropImage($imgPath)
+	{
+		$storage = new JSONFocusStore;
+		$dataFocus = json_decode($storage->getFocus($imgPath), true);
+		$width = array(240, 360, 480, 768, 940, 1024);
+		foreach ($width as $finalWidth)
+		{
+			$image = new SmartCrop(".." . $imgPath);
+			$image->compute($dataFocus, $finalWidth);
+		}
+		return true;
 	}
 }

@@ -28,6 +28,15 @@ class PlgContentAdaptiveImage extends CMSPlugin
 	 * @since  4.0.0
 	 */
 	protected $autoloadLanguage = true;
+
+	/**
+	 * Base path for cache images.
+	 *
+	 * @var     string
+	 *
+	 * @since   4.0.0
+	 */
+	protected $cacheDir = "./images/.cache";
 	/**
 	 * Plugin that inserts focus points into the image.
 	 *
@@ -73,8 +82,6 @@ class PlgContentAdaptiveImage extends CMSPlugin
 		// Match pattern and return array into $images
 		preg_match_all($searchImage, $text, $images);
 
-		$storage = new JSONFocusStore;
-
 		// Process image one by one
 		foreach ($images[0] as $key => $image)
 		{
@@ -83,28 +90,41 @@ class PlgContentAdaptiveImage extends CMSPlugin
 
 			// Image Path
 			$imgPath = "/" . $src[1];
-			
-			// Takeing Focus Points
-			$data = $storage->getFocus($imgPath);
 
-			// If no data is found exit loop
-			if ($data)
+			$imageName = explode("/", $imgPath);
+			$imageName = $imageName[max(array_keys($imageName))];
+
+			$images = scandir($this->cacheDir);
+			unset($images[0]);
+			unset($images[1]);
+
+			$cacheImages = array();
+			foreach ($images as $key => $name)
 			{
-				$data = json_decode($data, true);
+				$imgWidth = explode("_", $name);
+				$imgName = explode(".", $imgWidth[1]);
+				$imgWidth = $imgWidth[0];
+				$extension = $imgName[1];
+				$imgName = base64_decode($imgName[0]) . "." . $extension;
 
-				// Inserting data into respective attibutes
-				$focus = "focus-x		=	\"" . $data['box-left'] . "\"
-						focus-y			=	\"" . $data['box-top'] . "\"
-						focus-width		=	\"" . $data['box-width'] . "\"
-						focus-height	=	\"" . $data['box-height'] . "\"
-						class = \"adaptiveimg\"/>";
-
-				// Adding attributes in the <img> tag
-				$newTag = str_replace("/>", $focus, $image);
-
-				// Replaceing the previous <img> tag with new one.
-				$text = str_replace($image, $newTag, $text);
+				if (strpos($imgName, $imageName))
+				{
+					$imgData["width"] = $imgWidth;
+					$imgData["name"]  = str_replace("./", "", $this->cacheDir) . "/" . $name;
+					array_push($cacheImages, $imgData);
+				}
 			}
+			arsort($cacheImages);
+
+			$element = "<picture>\n";
+			foreach ($cacheImages as $key => $attributes)
+			{
+				$source = "<source media=\"(min-width: " . $attributes["width"] . "px)\" srcset=\"" . $attributes["name"] . "\">\n";
+				$element .= $source;
+			}
+			$element .= $image . "\n</picture>";
+
+			$text = str_replace($image, $element, $text);
 
 		}
 

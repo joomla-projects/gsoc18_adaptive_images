@@ -17,39 +17,40 @@
 			type="spacer"
 			hr="true"
 		/>
+
 		<field
-			name="data_focus_top"
+			name="data_focus_x"
 			type="text"
-			label="PLG_MEDIA-ACTION_SMARTCROP_PARAM_TOP"
+			label="PLG_MEDIA-ACTION_SMARTCROP_PARAM_X"
 			hiddenLabel="true"
-			addonBefore="PLG_MEDIA-ACTION_SMARTCROP_PARAM_TOP_PRE"
+			addonBefore="PLG_MEDIA-ACTION_SMARTCROP_PARAM_X_PRE"
+			pattern="\d*\.?\d*"
+		/>
+		
+		<field
+			name="data_focus_y"
+			type="text"
+			label="PLG_MEDIA-ACTION_SMARTCROP_PARAM_Y"
+			hiddenLabel="true"
+			addonBefore="PLG_MEDIA-ACTION_SMARTCROP_PARAM_Y_PRE"
 			pattern="\d*\.?\d*"
 		/>
 
         <field
-			name="data_focus_bottom"
+			name="data_focus_width"
 			type="text"
-			label="PLG_MEDIA-ACTION_SMARTCROP_PARAM_BOTTOM"
+			label="PLG_MEDIA-ACTION_SMARTCROP_PARAM_WIDTH"
 			hiddenLabel="true"
-			addonBefore="PLG_MEDIA-ACTION_SMARTCROP_PARAM_BOTTOM_PRE"
+			addonBefore="PLG_MEDIA-ACTION_SMARTCROP_PARAM_WIDTH_PRE"
 			pattern="\d*\.?\d*"
 		/>
 
         <field
-			name="data_focus_left"
+			name="data_focus_height"
 			type="text"
-			label="PLG_MEDIA-ACTION_SMARTCROP_PARAM_LEFT"
+			label="PLG_MEDIA-ACTION_SMARTCROP_PARAM_HEIGHT"
 			hiddenLabel="true"
-			addonBefore="PLG_MEDIA-ACTION_SMARTCROP_PARAM_LEFT_PRE"
-			pattern="\d*\.?\d*"
-		/>
-
-        <field
-			name="data_focus_right"
-			type="text"
-			label="PLG_MEDIA-ACTION_SMARTCROP_PARAM_RIGHT"
-			hiddenLabel="true"
-			addonBefore="PLG_MEDIA-ACTION_SMARTCROP_PARAM_RIGHT_PRE"
+			addonBefore="PLG_MEDIA-ACTION_SMARTCROP_PARAM_HEIGHT_PRE"
 			pattern="\d*\.?\d*"
 		/>
 
