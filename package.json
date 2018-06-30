@@ -34,6 +34,7 @@
     "jquery-migrate": "1.4.1",
     "mediaelement": "4.2.8",
     "punycode": "1.4.1",
+    "responsifyjs":"*",
     "tinymce": "4.7.7"
   },
   "devDependencies": {
@@ -346,6 +347,15 @@
         },
         "dependencies": [],
         "licenseFilename": "LICENSE.md"
+      },
+      "responsifyjs": {
+        "name": "responsifyjs",
+        "js": {
+          "dist/responsify.js": "responsify.js",
+          "dist/responsify.min.js": "responsify.min.js"
+        },
+        "dependencies": [],
+        "licenseFilename": ""
       }
     }
   }
