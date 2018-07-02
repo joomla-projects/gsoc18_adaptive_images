@@ -61,7 +61,8 @@ class JSONFocusStore implements FocusStoreInterface
 				"box-left"			=> $dataFocus['box-left'],
 				"box-top"			=> $dataFocus['box-top'],
 				"box-width"			=> $dataFocus['box-width'],
-				"box-height"		=> $dataFocus['box-height']
+				"box-height"		=> $dataFocus['box-height'],
+				"widths"			=> $dataFocus['widths']
 			)
 		);
 
@@ -75,6 +76,7 @@ class JSONFocusStore implements FocusStoreInterface
 			$prevData[$imgPath]["box-top"] 				= $dataFocus['box-top'];
 			$prevData[$imgPath]["box-width"] 			= $dataFocus['box-width'];
 			$prevData[$imgPath]["box-height"] 			= $dataFocus['box-height'];
+			$prevData[$imgPath]["widths"] 				= $dataFocus['widths'];
 
 			file_put_contents(static::$dataLocation, json_encode($prevData));
 		}

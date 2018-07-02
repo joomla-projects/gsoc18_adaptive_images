@@ -61,7 +61,17 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 			var defaultCropFactor = image.naturalWidth / image.naturalHeight;
 			Joomla.MediaManager.Edit.smartcrop.cropper.setAspectRatio(defaultCropFactor);
 
-		});
+        });
+        
+        var setSelectedValues = function(select, values){
+            select.value = null; // Reset pre-selected options (just in case)
+            var multiLen = select.options.length;
+            for (var i = 0; i < multiLen; i++) {
+                if (values.indexOf(select.options[i].value) >= 0) {
+                    select.options[i].selected = true;
+                }
+            }
+        }
 
 		var setFocusData = function(){
 			var data, path, 
@@ -81,6 +91,9 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 						"width"	: data["box-width"],
 						"height": data["box-height"]
 						});
+						var widths = document.getElementById("jform_requestedWidth");
+						var widthValues = data["widths"];
+						setSelectedValues(widths, widthValues);
 					}
 				}
 			};
@@ -96,13 +109,15 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 			initSmartCrop(mediaData);
 		},
 		Deactivate: function () {
+			var widths = getSelectValues(document.getElementById("jform_requestedWidth"));
 			var path = getQueryVariable('path');
 			path = path.split(':');
 			path = '/images' + path[1];
 			var data = "&box-left="+Joomla.MediaManager.Edit.smartcrop.cropper.boxLeft+
 					"&box-top="+Joomla.MediaManager.Edit.smartcrop.cropper.boxTop+
 					"&box-width="+Joomla.MediaManager.Edit.smartcrop.cropper.boxWidth+
-					"&box-height="+Joomla.MediaManager.Edit.smartcrop.cropper.boxHeight;
+					"&box-height="+Joomla.MediaManager.Edit.smartcrop.cropper.boxHeight+
+					"&widths="+JSON.stringify(widths);
 			var xhr = new XMLHttpRequest();
 			var url = resolveBaseUrl() +"/administrator/index.php?option=com_media&task=adaptiveimage.setfocus&path="+path;
 			url += data;
@@ -135,6 +150,21 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 			return basePath+"/"+url[1];
 		}
 		return basePath;
+	}
+
+	function getSelectValues(select) {
+		var result = [];
+		var options = select && select.options;
+		var opt;
+	  
+		for (var i=0, iLen=options.length; i<iLen; i++) {
+		  opt = options[i];
+	  
+		  if (opt.selected) {
+			result.push(opt.value || opt.text);
+		  }
+		}
+		return result;
 	}
 
 })();
