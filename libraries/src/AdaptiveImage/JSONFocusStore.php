@@ -99,7 +99,9 @@ class JSONFocusStore implements FocusStoreInterface
 	/**
 	 * Function to get the focus point
 	 *
-	 * @param   string  $imgPath  Image Path
+	 * @param   string    $imgPath  Image Path
+	 * 
+	 * @param   integer   $width    Width of the corresponding data focus point
 	 *
 	 * @return  array
 	 *
