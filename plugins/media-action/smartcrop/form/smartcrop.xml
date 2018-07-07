@@ -57,7 +57,7 @@
 		<field
 			name="requestedWidth"
 			type="list"
-			label="Select all the required sizes"
+			label="PLG_MEDIA-ACTION_SMARTCROP_REQUESTED_WIDTH"
 			class="smartcrop-requested-width"
 			default="940"
 			>
