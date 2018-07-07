@@ -59,7 +59,7 @@
 			type="list"
 			label="Select all the required sizes"
 			class="smartcrop-requested-width"
-			multiple="true"
+			default="940"
 			>
 			<option class="smartcrop-requested-width" value="240">240px</option>
 			<option class="smartcrop-requested-width" value="360">360px</option>
@@ -68,30 +68,6 @@
 			<option class="smartcrop-requested-width" value="720">720px</option>
 			<option class="smartcrop-requested-width" value="940">940px</option>
 			<option class="smartcrop-requested-width" value="1080">1080px</option>
-		</field>
-
-		<field
-			name="focusMoreHorizontal"
-			type="list"
-			label="Focus horizontally more towards"
-			class="focus-horizontal"
-			default="none"
-			>
-			<option class="focus-horizontal" value="none">None</option>
-			<option class="focus-horizontal" value="left">Left</option>
-			<option class="focus-horizontal" value="right">Right</option>
-		</field>
-
-		<field
-			name="focusMoreVerticle"
-			type="list"
-			label="Focus Vertically more towards"
-			class="focus-verticle"
-			default="none"
-			>
-			<option class="focus-verticle" value="none">None</option>
-			<option class="focus-verticle" value="top">Top</option>
-			<option class="focus-verticle" value="bottom">Bottom</option>
 		</field>
 
 	</fieldset>
