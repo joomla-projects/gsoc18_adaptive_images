@@ -171,5 +171,4 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
         });
 		
     };
-
 })();
