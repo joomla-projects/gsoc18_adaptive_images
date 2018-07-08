@@ -36,12 +36,13 @@ interface FocusStoreInterface
 	 * Public function for getting the focus point
 	 * from the file system
 	 *
-	 * @param   string  $imgSrc  Path of the image
-	 *
+	 * @param   string   $imgSrc  Path of the image
+	 * @param   integer  $width   Width of the image
+	 * 
 	 * @return string
 	 *
 	 * @since 4.0.0
 	 */
-	public function getFocus($imgSrc);
+	public function getFocus($imgSrc, $width);
 
 }

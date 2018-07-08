@@ -46,11 +46,11 @@ class JSONFocusStore implements FocusStoreInterface
 	 *
 	 * index.php?option=com_media&task=adaptiveimage.setfocus&path=/images/sampledata/fruitshop/bananas_1.jpg
 	 *
-	 * @param   array     $dataFocus  Array of the values of diffrent focus point
+	 * @param   array    $dataFocus  Array of the values of diffrent focus point
 	 * 
-	 * @param   integer   $width      Width of the image
+	 * @param   integer  $width      Width of the image
 	 *
-	 * @param   string    $imgPath    Full path for the file
+	 * @param   string   $imgPath    Full path for the file
 	 *
 	 * @return  boolean
 	 *
@@ -99,9 +99,9 @@ class JSONFocusStore implements FocusStoreInterface
 	/**
 	 * Function to get the focus point
 	 *
-	 * @param   string    $imgPath  Image Path
+	 * @param   string   $imgPath  Image Path
 	 * 
-	 * @param   integer   $width    Width of the corresponding data focus point
+	 * @param   integer  $width    Width of the corresponding data focus point
 	 *
 	 * @return  array
 	 *
@@ -155,7 +155,7 @@ class JSONFocusStore implements FocusStoreInterface
 	/**
 	 * Fine the max value of all the focus area selected
 	 * 
-	 * @param  array  $dataFocuses  Collection of dataFocus for diffrent sizes.
+	 * @param   array  $dataFocuses  Collection of dataFocus for diffrent sizes.
 	 * 
 	 * @return  array
 	 * 
