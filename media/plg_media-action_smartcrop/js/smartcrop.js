@@ -9,14 +9,13 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 
 (function () {
     "use strict";
+    var path;
+    // resolveing the path
+    path = getQueryVariable('path').split(':');
+    path = '/images' + path[1];
 
     // Setting the focus area in the editor
     var getFocusPoints = function(width){
-        var path;
-        // resolveing the path
-        path = getQueryVariable('path').split(':');
-        path = '/images' + path[1];
-
         Joomla.request({
             url: resolveBaseUrl() +"/administrator/index.php?option=com_media&task=adaptiveimage.cropBoxData&path="+path+"&width="+width,
             method: 'GET',
@@ -37,10 +36,6 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 
     // Saveing the focus points to the storage
     function saveFocusPoints(width) {
-        // Resolveing Path
-		var path = getQueryVariable('path');
-		path = path.split(':');
-        path = '/images' + path[1];
         // Data to be saved in the storage
 		var data = "&box-left="+Joomla.MediaManager.Edit.smartcrop.cropper.boxLeft+
                     "&box-top="+Joomla.MediaManager.Edit.smartcrop.cropper.boxTop+
@@ -48,22 +43,20 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
                     "&box-height="+Joomla.MediaManager.Edit.smartcrop.cropper.boxHeight+
                     "&width="+width;
 
-		var xhr = new XMLHttpRequest();
-		var url = resolveBaseUrl() +"/administrator/index.php?option=com_media&task=adaptiveimage.setfocus&path="+path;
-		url += data;
-		xhr.open("GET", url, true);
-		xhr.send();
+        Joomla.request({
+            url: resolveBaseUrl() +"/administrator/index.php?option=com_media&task=adaptiveimage.setfocus&path="+path+data,
+            method: 'GET',
+            data: '',
+        });
     }
 
     // At Deactivate crop the images and save to cache.
     function cropImages(){
-        var path = getQueryVariable('path');
-		path = path.split(':');
-        path = '/images' + path[1];
-		var xhr = new XMLHttpRequest();
-		var url = resolveBaseUrl() +"/administrator/index.php?option=com_media&task=adaptiveimage.cropImage&path="+path;
-		xhr.open("GET", url, true);
-		xhr.send();
+        Joomla.request({
+            url: resolveBaseUrl() +"/administrator/index.php?option=com_media&task=adaptiveimage.cropImage&path="+path,
+            method: 'GET',
+            data: '',
+        });
     }
 
     // Getting the value of any varible in the url
