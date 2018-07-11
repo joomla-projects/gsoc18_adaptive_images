@@ -12,19 +12,18 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 
     // Setting the focus area in the editor
     var getFocusPoints = function(width){
-        var data, path, 
-            xhr, url;
+        var path;
         // resolveing the path
         path = getQueryVariable('path').split(':');
         path = '/images' + path[1];
 
-        xhr = new XMLHttpRequest();
-        url = resolveBaseUrl() +"/administrator/index.php?option=com_media&task=adaptiveimage.cropBoxData&path="+path+"&width="+width;
-        xhr.open("GET", url, true);
-        xhr.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                if(this.response!=''){
-                    data = JSON.parse(this.responseText);
+        Joomla.request({
+            url: resolveBaseUrl() +"/administrator/index.php?option=com_media&task=adaptiveimage.cropBoxData&path="+path+"&width="+width,
+            method: 'GET',
+            data: '',
+            onSuccess: (response) => {
+                if(response!=''){
+                    var data = JSON.parse(response);
                     Joomla.MediaManager.Edit.smartcrop.cropper.setData({
                     "x"	: data["box-left"],
                     "y"	: data["box-top"],
@@ -32,9 +31,8 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
                     "height": data["box-height"]
                     });
                 }
-            }
-        };
-        xhr.send();
+            },
+        });
     }
 
     // Saveing the focus points to the storage
