@@ -19,7 +19,6 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
         Joomla.request({
             url: resolveBaseUrl() +"/administrator/index.php?option=com_media&task=adaptiveimage.cropBoxData&path="+path+"&width="+width,
             method: 'GET',
-            data: '',
             onSuccess: (response) => {
                 if(response!=''){
                     var data = JSON.parse(response);
@@ -46,7 +45,6 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
         Joomla.request({
             url: resolveBaseUrl() +"/administrator/index.php?option=com_media&task=adaptiveimage.setfocus&path="+path+data,
             method: 'GET',
-            data: '',
         });
     }
 
@@ -55,7 +53,6 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
         Joomla.request({
             url: resolveBaseUrl() +"/administrator/index.php?option=com_media&task=adaptiveimage.cropImage&path="+path,
             method: 'GET',
-            data: '',
         });
     }
 
