@@ -64,7 +64,8 @@ class AdaptiveImageController extends BaseController
 				break;
 			case "cropImage" :
 				$imgPath = $this->input->getString('path');
-				$this->cropImage($imgPath);
+				$widths = json_decode($this->input->getString('widths'), true);
+				$this->cropImage($imgPath, $widths);
 				return true;
 				break;
 			default :

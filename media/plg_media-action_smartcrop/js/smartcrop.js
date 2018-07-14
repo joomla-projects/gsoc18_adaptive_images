@@ -50,8 +50,14 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 
     // At Deactivate crop the images and save to cache.
     function cropImages(){
+        var widths = document.getElementById("jform_requestedWidth");
+        var cropWidths = [];
+        for (var i = 0 ; i < widths.length ; i++)
+        {
+            cropWidths[i] = widths[i].value;
+        }
         Joomla.request({
-            url: resolveBaseUrl() +"/administrator/index.php?option=com_media&task=adaptiveimage.cropImage&path="+path,
+            url: resolveBaseUrl() +"/administrator/index.php?option=com_media&task=adaptiveimage.cropImage&path="+path+"&widths="+JSON.stringify(cropWidths),
             method: 'GET',
         });
     }
