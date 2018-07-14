@@ -79,11 +79,38 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 		return basePath;
     }
 
+    function addCustomWidths() {
+        var widths = Joomla.getOptions('js-smartcrop-widths');
+        var widthDropDown = document.getElementById("jform_requestedWidth");
+        var defaultWidthLength = widthDropDown.length;
+        var customWidthLength  = widths.length;
+        if (customWidthLength > 0)
+        {
+            // Remove all the previous widths from the dropdown.
+            for (var i = 0 ; i < defaultWidthLength ; i++)
+                widthDropDown.remove(widthDropDown.i);
+            
+            // Sort Custom Widths in accending order.
+            widths.sort();
+            
+            // Add Custom Wdiths to the dropdown.
+            for (var i = 0 ; i < customWidthLength ; i++)
+            {
+                var option = document.createElement('option');
+                option.text = widths[i] + "px";
+                option.value = widths[i];
+                widthDropDown.add(option, i);
+            }
+        }
+        
+    }
+
     // Register the Events
 	Joomla.MediaManager.Edit.smartcrop = {
 		Activate: function (mediaData) {
 			// Initialize
-			initSmartCrop(mediaData);
+            initSmartCrop(mediaData);
+            addCustomWidths();
 		},
 		Deactivate: function () {
 			var width = document.getElementById("jform_requestedWidth").value;

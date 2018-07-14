@@ -11,6 +11,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Plugin\CMSPlugin;
+use Joomla\CMS\Factory;
 
 /**
  * Media Manager Smart Crop Action
@@ -49,8 +50,13 @@ class PlgMediaActionSmartCrop extends CMSPlugin
 		// Fetch the parameters.
 		$parameter_object = $this->params->get('custom_width', false);
 		$Widths = [];
-		foreach ($parameter_object as $customWidth) 
-			$Widths[] = $customWidth->Widths;
+		if($parameter_object)
+		{
+			foreach ($parameter_object as $customWidth) 
+				$Widths[] = $customWidth->Widths;
+		}
+
+		Factory::getDocument()->addScriptOptions('js-smartcrop-widths', $Widths);
 
 		$this->loadCss();
 		$this->loadJs();
