@@ -44,10 +44,10 @@ class AdaptiveImageController extends BaseController
 				$imgPath = $this->input->getString('path');
 				$width   = $this->input->getInt('width');
 				$dataFocus = array (
-					"box-left"			=> $this->input->getInt('box-left'),
-					"box-top"			=> $this->input->getInt('box-top'),
-					"box-width"			=> $this->input->getInt('box-width'),
-					"box-height"		=> $this->input->getInt('box-height')
+					"box-left"		=> $this->input->getInt('box-left'),
+					"box-top"		=> $this->input->getInt('box-top'),
+					"box-width"		=> $this->input->getInt('box-width'),
+					"box-height"	=> $this->input->getInt('box-height')
 				);
 				$storage = new JSONFocusStore;
 				$storage->setFocus($dataFocus, $width, $imgPath);
@@ -75,7 +75,6 @@ class AdaptiveImageController extends BaseController
 	 * Crop the images around the focus area
 	 * 
 	 * @param   string  $imgPath  image path
-	 * 
 	 * @param   array   $widths   requested widths
 	 * 
 	 * @return  boolean
