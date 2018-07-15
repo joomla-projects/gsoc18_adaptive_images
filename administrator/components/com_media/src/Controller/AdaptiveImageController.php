@@ -47,7 +47,7 @@ class AdaptiveImageController extends BaseController
 					"box-left"		=> $this->input->getInt('box-left'),
 					"box-top"		=> $this->input->getInt('box-top'),
 					"box-width"		=> $this->input->getInt('box-width'),
-					"box-height"	=> $this->input->getInt('box-height')
+					"box-height"		=> $this->input->getInt('box-height')
 				);
 				$storage = new JSONFocusStore;
 				$storage->setFocus($dataFocus, $width, $imgPath);
