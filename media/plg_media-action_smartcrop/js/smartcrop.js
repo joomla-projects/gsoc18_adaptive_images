@@ -23,10 +23,10 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 				if(response!=''){
 					var data = JSON.parse(response);
 					Joomla.MediaManager.Edit.smartcrop.cropper.setData({
-						"x"	        : data["box-left"],
-						"y"		: data["box-top"],
-						"width"	    	: data["box-width"],
-						"height"    	: data["box-height"]
+						"x"      : data["box-left"],
+						"y"      : data["box-top"],
+						"width"  : data["box-width"],
+						"height" : data["box-height"]
 					});
 				}
 			},

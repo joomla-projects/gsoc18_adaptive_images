@@ -59,10 +59,10 @@ class JSONFocusStore implements FocusStoreInterface
 		$newEntry = array(
 			$imgPath => array(
 				$width => array(
-					"box-left"		=> $dataFocus['box-left'],
-					"box-top"		=> $dataFocus['box-top'],
-					"box-width"		=> $dataFocus['box-width'],
-					"box-height"		=> $dataFocus['box-height']
+					"box-left"   => $dataFocus['box-left'],
+					"box-top"    => $dataFocus['box-top'],
+					"box-width"  => $dataFocus['box-width'],
+					"box-height" => $dataFocus['box-height']
 				)
 			)
 		);
@@ -73,10 +73,10 @@ class JSONFocusStore implements FocusStoreInterface
 
 			$prevData = json_decode($prevData, true);
 
-			$prevData[$imgPath][$width]["box-left"] 	= $dataFocus['box-left'];
-			$prevData[$imgPath][$width]["box-top"] 		= $dataFocus['box-top'];
-			$prevData[$imgPath][$width]["box-width"] 	= $dataFocus['box-width'];
-			$prevData[$imgPath][$width]["box-height"] 	= $dataFocus['box-height'];
+			$prevData[$imgPath][$width]["box-left"]   = $dataFocus['box-left'];
+			$prevData[$imgPath][$width]["box-top"]    = $dataFocus['box-top'];
+			$prevData[$imgPath][$width]["box-width"]  = $dataFocus['box-width'];
+			$prevData[$imgPath][$width]["box-height"] = $dataFocus['box-height'];
 
 			$max = $this->findMax($prevData[$imgPath]);
 			$prevData[$imgPath]["max"] = $max;
@@ -160,37 +160,26 @@ class JSONFocusStore implements FocusStoreInterface
 	 */
 	private function findMax($dataFocuses)
 	{
-		$minX		=	9999;
-		$minY		=	9999;
-		$maxWidth	=	0;
-		$maxHeight	=	0;
+		$minX      = 9999;
+		$minY      = 9999;
+		$maxWidth  = 0;
+		$maxHeight = 0;
+		
 		foreach ($dataFocuses as $width => $focus)
 		{
 			if ($width != "max")
 			{
-				if ($focus["box-left"] < $minX)
-				{
-					$minX = $focus["box-left"];
-				}
-				if ($focus["box-top"] < $minY)
-				{
-					$minY = $focus["box-top"];
-				}
-				if ($focus["box-width"] > $maxWidth)
-				{
-					$maxWidth = $focus["box-width"];
-				}
-				if ($focus["box-height"] > $maxHeight)
-				{
-					$maxHeight = $focus["box-height"];
-				}
+				$minX      = min($minX, $focus["box-left"]);
+				$minY      = min($minY, $focus["box-top"]);
+				$maxWidth  = max($maxWidth, $focus["box-width"]);
+				$maxHeight = max($maxHeight, $focus["box-height"]);
 			}
 		}
 		$maxFocus = array(
-			"box-left"		=> $minX,
-			"box-top"		=> $minY,
-			"box-width"		=> $maxWidth,
-			"box-height"		=> $maxHeight
+			"box-left"   => $minX,
+			"box-top"    => $minY,
+			"box-width"  => $maxWidth,
+			"box-height" => $maxHeight
 		);
 		return $maxFocus;
 	}

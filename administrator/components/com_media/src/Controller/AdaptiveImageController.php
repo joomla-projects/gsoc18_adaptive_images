@@ -38,16 +38,16 @@ class AdaptiveImageController extends BaseController
 	 */
 	public function execute($task)
 	{
-		switch ($task)
+		switch($task)
 		{
 			case "setfocus" :
 				$imgPath = $this->input->getString('path');
 				$width   = $this->input->getInt('width');
 				$dataFocus = array (
-					"box-left"		=> $this->input->getInt('box-left'),
-					"box-top"		=> $this->input->getInt('box-top'),
-					"box-width"		=> $this->input->getInt('box-width'),
-					"box-height"		=> $this->input->getInt('box-height')
+					"box-left"   => $this->input->getInt('box-left'),
+					"box-top"    => $this->input->getInt('box-top'),
+					"box-width"  => $this->input->getInt('box-width'),
+					"box-height" => $this->input->getInt('box-height')
 				);
 				$storage = new JSONFocusStore;
 				$storage->setFocus($dataFocus, $width, $imgPath);
@@ -81,13 +81,12 @@ class AdaptiveImageController extends BaseController
 	 * 
 	 * @since 4.0.0 
 	 */
-	public function cropImage($imgPath, $widths=null)
+	public function cropImage($imgPath, $widths = null)
 	{
 		$storage = new JSONFocusStore;
-		if ( $widths==null)
+		if ($widths == null)
 		{
 			$widths = array(240, 360, 480, 768, 940, 1024);
-
 		}
 		foreach ($widths as $width)
 		{
