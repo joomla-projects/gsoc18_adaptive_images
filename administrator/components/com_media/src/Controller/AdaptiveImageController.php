@@ -38,7 +38,7 @@ class AdaptiveImageController extends BaseController
 	 */
 	public function execute($task)
 	{
-		switch($task)
+		switch ($task)
 		{
 			case "setfocus" :
 				$imgPath = $this->input->getString('path');
