@@ -160,10 +160,10 @@ class JSONFocusStore implements FocusStoreInterface
 	 */
 	private function findMax($dataFocuses)
 	{
-		$minX        = 9999;
-		$minY        = 9999;
-		$maxX        = 0;
-		$maxY        = 0;
+		$minX = 9999;
+		$minY = 9999;
+		$maxX = 0;
+		$maxY = 0;
 		
 		foreach ($dataFocuses as $width => $focus)
 		{
