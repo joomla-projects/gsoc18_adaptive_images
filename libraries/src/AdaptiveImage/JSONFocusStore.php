@@ -104,7 +104,7 @@ class JSONFocusStore implements FocusStoreInterface
 	 *
 	 * @since 4.0.0
 	 */
-	public function getFocus($imgPath, $width=null)
+	public function getFocus($imgPath, $width = null)
 	{
 		if (!filesize(static::$dataLocation))
 		{
