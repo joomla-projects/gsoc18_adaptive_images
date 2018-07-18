@@ -24,9 +24,9 @@
         <language tag="en-GB">en-GB.plg_media-action_smartcrop.sys.ini</language>
     </languages>
     <config>
-		<fields name="params">
-			<fieldset name="basic">
-				<field name="custom_width" 
+        <fields name="params">
+            <fieldset name="basic">
+                <field  name="custom_width" 
                         type="subform"
                         layout="joomla.form.field.subform.repeatable-table"
                         multiple="true"
