@@ -50,10 +50,12 @@ class PlgMediaActionSmartCrop extends CMSPlugin
 		// Fetch the parameters.
 		$parameter_object = $this->params->get('custom_width', false);
 		$Widths = [];
-		if($parameter_object)
+		if ($parameter_object)
 		{
-			foreach ($parameter_object as $customWidth) 
+			foreach ($parameter_object as $customWidth)
+			{
 				$Widths[] = $customWidth->Widths;
+			}
 		}
 
 		Factory::getDocument()->addScriptOptions('js-smartcrop-widths', $Widths);
