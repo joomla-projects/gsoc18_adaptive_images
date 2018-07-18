@@ -51,15 +51,15 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 	// At Deactivate crop the images and save to cache.
 	function cropImages(){
 		var widths = document.getElementById("jform_requestedWidth");
-        var cropWidths = [];
-        for (var i = 0 ; i < widths.length ; i++)
-        {
-            cropWidths[i] = widths[i].value;
-        }
-        Joomla.request({
-            url: resolveBaseUrl() +"/administrator/index.php?option=com_media&task=adaptiveimage.cropImage&path="+path+"&widths="+JSON.stringify(cropWidths),
-            method: 'GET',
-        });
+		var cropWidths = [];
+		for (var i = 0 ; i < widths.length ; i++)
+		{
+			cropWidths[i] = widths[i].value;
+		}
+		Joomla.request({
+			url: resolveBaseUrl() +"/administrator/index.php?option=com_media&task=adaptiveimage.cropImage&path="+path+"&widths="+JSON.stringify(cropWidths),
+			method: 'GET',
+		});
 	}
 
 	// Getting the value of any varible in the url
@@ -86,30 +86,31 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 	}
 
 	function addCustomWidths() {
-        var widths = Joomla.getOptions('js-smartcrop-widths');
-        var widthDropDown = document.getElementById("jform_requestedWidth");
-        var defaultWidthLength = widthDropDown.length;
-        var customWidthLength  = widths.length;
-        if (customWidthLength > 0)
-        {
-            // Remove all the previous widths from the dropdown.
-            for (var i = 0 ; i < defaultWidthLength ; i++)
-                widthDropDown.remove(widthDropDown.i);
-            
-            // Sort Custom Widths in accending order.
-            widths.sort();
-            
-            // Add Custom Wdiths to the dropdown.
-            for (var i = 0 ; i < customWidthLength ; i++)
-            {
-                var option = document.createElement('option');
-                option.text = widths[i] + "px";
-                option.value = widths[i];
-                widthDropDown.add(option, i);
-            }
-        }
-        
-    }
+		var widths = Joomla.getOptions('js-smartcrop-widths');
+		var widthDropDown = document.getElementById("jform_requestedWidth");
+		var defaultWidthLength = widthDropDown.length;
+		var customWidthLength  = widths.length;
+		if (customWidthLength > 0)
+		{
+			// Remove all the previous widths from the dropdown.
+			for (var i = 0 ; i < defaultWidthLength ; i++)
+			{
+				widthDropDown.remove(widthDropDown.i);
+			}
+				
+			// Sort Custom Widths in accending order.
+			widths.sort();
+			
+			// Add Custom Wdiths to the dropdown.
+			for (var i = 0 ; i < customWidthLength ; i++)
+			{
+				var option = document.createElement('option');
+				option.text = widths[i] + "px";
+				option.value = widths[i];
+				widthDropDown.add(option, i);
+			}
+		}
+	}
 
 	// Register the Events
 	Joomla.MediaManager.Edit.smartcrop = {
