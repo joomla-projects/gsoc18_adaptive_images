@@ -32,14 +32,14 @@
                         multiple="true"
                         description="PLG_MEDIA-ACTION_SMARTCROP_FIELD-SET_DESCRIPTION"
                         button="add,remove"
-                        label="PLG_MEDIA-ACTION_SMARTCROP_FIELD-SET_LABEL">     
-					<form>
-                        <field
-                            name="Widths"
-                            type="number"/>    
-                    </form>
-				</field>
-			</fieldset>
-		</fields>
-	</config>
+                        label="PLG_MEDIA-ACTION_SMARTCROP_FIELD-SET_LABEL">
+                        <form>
+                            <field
+                                name="Widths"
+                                type="number"/>
+                        </form>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
 </extension>
