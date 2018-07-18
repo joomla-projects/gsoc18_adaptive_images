@@ -78,8 +78,6 @@ class AdaptiveImageController extends BaseController
 	 * @param   string  $imgPath  image path
 	 * @param   array   $widths   requested widths
 	 * 
-	 * @param   array   $widths   requested widths
-	 * 
 	 * @return  boolean
 	 * 
 	 * @since 4.0.0 
