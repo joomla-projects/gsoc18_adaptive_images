@@ -52,7 +52,6 @@ class AdaptiveImageController extends BaseController
 				$storage = new JSONFocusStore;
 				$storage->setFocus($dataFocus, $width, $imgPath);
 				return true;
-				break;
 			case "cropBoxData" :
 				$this->app->setHeader('Content-Type', 'application/json');
 				$imgPath = $this->input->getString('path');
@@ -61,13 +60,11 @@ class AdaptiveImageController extends BaseController
 				echo $storage->getFocus($imgPath, $width);
 				$this->app->close();
 				return true;
-				break;
 			case "cropImage" :
 				$imgPath = $this->input->getString('path');
 				$widths = json_decode($this->input->getString('widths'), true);
 				$this->cropImage($imgPath, $widths);
 				return true;
-				break;
 			default :
 				return false;
 		}
