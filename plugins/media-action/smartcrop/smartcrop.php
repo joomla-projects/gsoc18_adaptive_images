@@ -48,17 +48,17 @@ class PlgMediaActionSmartCrop extends CMSPlugin
 		}
 		
 		// Fetch the parameters.
-		$parameter_object = $this->params->get('custom_width', false);
-		$Widths = [];
-		if ($parameter_object)
+		$parameterObject = $this->params->get('customWidth', false);
+		$widths = [];
+		if ($parameterObject)
 		{
-			foreach ($parameter_object as $customWidth)
+			foreach ($parameterObject as $customWidth)
 			{
-				$Widths[] = $customWidth->Widths;
+				$widths[] = $customWidth->widths;
 			}
 		}
 
-		Factory::getDocument()->addScriptOptions('js-smartcrop-widths', $Widths);
+		Factory::getDocument()->addScriptOptions('js-smartcrop-widths', $widths);
 
 		$this->loadCss();
 		$this->loadJs();
@@ -83,9 +83,9 @@ class PlgMediaActionSmartCrop extends CMSPlugin
 	protected function loadJs()
 	{
 		\JHtml::_(
-		'script',
-			'plg_media-action_' . $this->_name . '/' . $this->_name . '.js',
-			array('version' => 'auto', 'relative' => true)
+			'script',
+				'plg_media-action_' . $this->_name . '/' . $this->_name . '.js',
+				array('version' => 'auto', 'relative' => true)
 		);
 	}
 
@@ -99,9 +99,9 @@ class PlgMediaActionSmartCrop extends CMSPlugin
 	protected function loadCss()
 	{
 		\JHtml::_(
-		'stylesheet',
-			'plg_media-action_' . $this->_name . '/' . $this->_name . '.css',
-			array('version' => 'auto', 'relative' => true)
-		);
+			'stylesheet',
+				'plg_media-action_' . $this->_name . '/' . $this->_name . '.css',
+				array('version' => 'auto', 'relative' => true)
+			);
 	}
 }
