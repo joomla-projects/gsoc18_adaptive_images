@@ -84,8 +84,8 @@ class PlgMediaActionSmartCrop extends CMSPlugin
 	{
 		\JHtml::_(
 			'script',
-				'plg_media-action_' . $this->_name . '/' . $this->_name . '.js',
-				array('version' => 'auto', 'relative' => true)
+			'plg_media-action_' . $this->_name . '/' . $this->_name . '.js',
+			array('version' => 'auto', 'relative' => true)
 		);
 	}
 
@@ -100,8 +100,8 @@ class PlgMediaActionSmartCrop extends CMSPlugin
 	{
 		\JHtml::_(
 			'stylesheet',
-				'plg_media-action_' . $this->_name . '/' . $this->_name . '.css',
-				array('version' => 'auto', 'relative' => true)
-			);
+			'plg_media-action_' . $this->_name . '/' . $this->_name . '.css',
+			array('version' => 'auto', 'relative' => true)
+		);
 	}
 }
