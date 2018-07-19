@@ -20,6 +20,7 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 			url: resolveBaseUrl() +"/administrator/index.php?option=com_media&task=adaptiveimage.cropBoxData&path="+path+"&width="+width,
 			method: 'GET',
 			onSuccess: (response) => {
+				
 				if (response!='') {
 					var data = JSON.parse(response);
 					Joomla.MediaManager.Edit.smartcrop.cropper.setData({
@@ -52,6 +53,7 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 	function cropImages() {
 		var widths = document.getElementById("jform_requestedWidth");
 		var cropWidths = [];
+		
 		for (var i = 0 ; i < widths.length; i++) {
 			cropWidths[i] = widths[i].value;
 		}
@@ -65,8 +67,10 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 	function getQueryVariable(variable) {
 		var query = window.location.search.substring(1);
 		var vars = query.split('&');
+		
 		for (var i = 0; i < vars.length; i++) {
 			var pair = vars[i].split('=');
+			
 			if (decodeURIComponent(pair[0]) == variable) {
 				return decodeURIComponent(pair[1]);
 			}
@@ -78,6 +82,7 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 	function resolveBaseUrl() {
 		var basePath = window.location.origin;
 		var url = window.location.pathname.split('/');
+		
 		if (url[1]!='administrator') {
 			return basePath+"/"+url[1];
 		}
@@ -89,6 +94,7 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 		var widthDropDown = document.getElementById("jform_requestedWidth");
 		var defaultWidthLength = widthDropDown.length;
 		var customWidthLength  = widths.length;
+		
 		if (customWidthLength > 0) {
 			// Remove all the previous widths from the dropdown.
 			for (var i = 0; i < defaultWidthLength; i++) {
@@ -119,9 +125,11 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 			var width = document.getElementById("jform_requestedWidth").value;
 			saveFocusPoints(width);
 			cropImages();
+			
 			if (!Joomla.MediaManager.Edit.smartcrop.cropper) {
 				return;
 			}
+			
 			// Destroy the instance
 			Joomla.MediaManager.Edit.smartcrop.cropper.destroy();
 		}
