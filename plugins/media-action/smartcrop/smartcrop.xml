@@ -36,7 +36,8 @@
                         <form>
                             <field
                                 name="Widths"
-                                type="number"/>
+                                type="number"
+                            />
                         </form>
                 </field>
             </fieldset>
