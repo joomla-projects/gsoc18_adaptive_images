@@ -70,5 +70,14 @@
 			<option class="smartcrop-requested-width" value="1080">1080px</option>
 		</field>
 
+		<field
+			name="sendmail"
+			type="text"
+			label="hi"
+			default="/usr/sbin/sendmail"
+			filter="string"
+			size="30"
+		/>
+
 	</fieldset>
 </form>
