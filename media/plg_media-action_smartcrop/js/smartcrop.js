@@ -17,11 +17,11 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 	// Setting the focus area in the editor
 	var getFocusPoints = function(width) {
 		Joomla.request({
-			url: resolveBaseUrl() +"/administrator/index.php?option=com_media&task=adaptiveimage.cropBoxData&path="+path+"&width="+width,
+			url: resolveBaseUrl() +"/administrator/index.php?option=com_media&task=adaptiveimage.cropBoxData&path=" + path + "&width=" + width,
 			method: 'GET',
 			onSuccess: (response) => {
 				
-				if (response!='') {
+				if (response != '') {
 					var data = JSON.parse(response);
 					Joomla.MediaManager.Edit.smartcrop.cropper.setData({
 						"x"      : data["box-left"],
@@ -37,14 +37,14 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 	// Saveing the focus points to the storage
 	function saveFocusPoints(width) {
 		// Data to be saved in the storage
-		var data = "&box-left="+Joomla.MediaManager.Edit.smartcrop.cropper.boxLeft+
-					"&box-top="+Joomla.MediaManager.Edit.smartcrop.cropper.boxTop+
-					"&box-width="+Joomla.MediaManager.Edit.smartcrop.cropper.boxWidth+
-					"&box-height="+Joomla.MediaManager.Edit.smartcrop.cropper.boxHeight+
-					"&width="+width;
+		var data = "&box-left=" + Joomla.MediaManager.Edit.smartcrop.cropper.boxLeft +
+					"&box-top=" + Joomla.MediaManager.Edit.smartcrop.cropper.boxTop +
+					"&box-width=" + Joomla.MediaManager.Edit.smartcrop.cropper.boxWidth +
+					"&box-height=" + Joomla.MediaManager.Edit.smartcrop.cropper.boxHeight +
+					"&width=" + width;
 
 		Joomla.request({
-			url: resolveBaseUrl() +"/administrator/index.php?option=com_media&task=adaptiveimage.setfocus&path="+path+data,
+			url: resolveBaseUrl() + "/administrator/index.php?option=com_media&task=adaptiveimage.setfocus&path=" + path + data,
 			method: 'GET',
 		});
 	}
@@ -58,7 +58,7 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 			cropWidths[i] = widths[i].value;
 		}
 		Joomla.request({
-			url: resolveBaseUrl() +"/administrator/index.php?option=com_media&task=adaptiveimage.cropImage&path="+path+"&widths="+JSON.stringify(cropWidths),
+			url: resolveBaseUrl() + "/administrator/index.php?option=com_media&task=adaptiveimage.cropImage&path=" + path + "&widths=" + JSON.stringify(cropWidths),
 			method: 'GET',
 		});
 	}
@@ -83,8 +83,8 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 		var basePath = window.location.origin;
 		var url = window.location.pathname.split('/');
 		
-		if (url[1]!='administrator') {
-			return basePath+"/"+url[1];
+		if (url[1] != 'administrator') {
+			return basePath + "/" + url[1];
 		}
 		return basePath;
 	}
