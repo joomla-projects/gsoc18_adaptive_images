@@ -55,7 +55,7 @@ class PlgMediaActionSmartCrop extends CMSPlugin
 		{
 			foreach ($parameterObject as $customWidth)
 			{
-				$widths[] = $customWidth->widths;
+				$widths[] = $customWidth->width;
 			}
 		}
 
