@@ -3,22 +3,6 @@
 	<fieldset name="smartcrop" label="PLG_MEDIA-ACTION_SMARTCROP_LABEL">
 
 		<field
-			name="smartcrop_quality"
-			type="number"
-			label="PLG_MEDIA-ACTION_SMARTCROP_QUALITY"
-			addonBefore="PLG_MEDIA-ACTION_SMARTCROP_QUALITY"
-			min="1"
-			max="100"
-			step="1"
-			default="80"
-		/>
-
-		<field
-			type="spacer"
-			hr="true"
-		/>
-
-		<field
 			name="data_focus_x"
 			type="text"
 			label="PLG_MEDIA-ACTION_SMARTCROP_PARAM_X"
