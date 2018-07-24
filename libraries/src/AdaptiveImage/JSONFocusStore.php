@@ -171,7 +171,25 @@ class JSONFocusStore implements FocusStoreInterface
 	 */
 	public function deleteResizedImages($imgSrc)
 	{
+		$cacheFolderImages = scandir(JPATH_SITE . $this->cacheDir);
 		
+		unset($cacheFolderImages[0]);
+		unset($cacheFolderImages[1]);
+
+		foreach ($cacheFolderImages as $key => $name)
+		{
+			$imgWidth = explode("_", $name);
+			$imgName = explode(".", $imgWidth[1]);
+			$imgWidth = $imgWidth[0];
+			$extension = $imgName[1];
+			$imgName = base64_decode($imgName[0]) . "." . $extension;
+
+			if (strpos($imgName, $imgSrc))
+			{
+				rm(JPATH_SITE . $this->cacheDir . "/" . $name);
+			}
+		}
+		return true;
 	}
 	/**
 	 * Check whether the file exist
