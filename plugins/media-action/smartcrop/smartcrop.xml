@@ -35,7 +35,7 @@
                         label="PLG_MEDIA-ACTION_SMARTCROP_FIELD-SET_LABEL">
                         <form>
                             <field
-                                name="Widths"
+                                name="width"
                                 type="number"
                             />
                         </form>
