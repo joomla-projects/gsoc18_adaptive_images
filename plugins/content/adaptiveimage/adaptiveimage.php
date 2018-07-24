@@ -113,18 +113,20 @@ class PlgContentAdaptiveImage extends CMSPlugin
 				continue;
 			}
 
+			// Filtering only the image name
 			$imageName = explode("/", $imgPath);
 			$imageName = $imageName[max(array_keys($imageName))];
 
 			$cacheImages = array();
 			foreach ($cacheFolderImages as $key => $name)
 			{
+				// Decrypting the image name 
 				$imgWidth = explode("_", $name);
 				$imgName = explode(".", $imgWidth[1]);
 				$imgWidth = $imgWidth[0];
 				$extension = $imgName[1];
 				$imgName = base64_decode($imgName[0]) . "." . $extension;
-
+				
 				if (strpos($imgName, $imageName))
 				{
 					$imgData["width"] = $imgWidth;
@@ -132,6 +134,7 @@ class PlgContentAdaptiveImage extends CMSPlugin
 					array_push($cacheImages, $imgData);
 				}
 			}
+			// Arrangeing widths in the order
 			arsort($cacheImages);
 
 			// Skiping if no resized images are present
@@ -140,6 +143,7 @@ class PlgContentAdaptiveImage extends CMSPlugin
 				continue;
 			}
 
+			// Generating the tag
 			$element = "<picture>\n";
 			foreach ($cacheImages as $key => $attributes)
 			{
@@ -148,6 +152,7 @@ class PlgContentAdaptiveImage extends CMSPlugin
 			}
 			$element .= $image . "\n</picture>";
 
+			// Replaceing the previous tag with new one in the article.
 			$text = str_replace($image, $element, $text);
 
 		}
