@@ -82,10 +82,12 @@ class AdaptiveImageController extends BaseController
 	public function cropImage($imgPath, $widths = null)
 	{
 		$storage = new JSONFocusStore;
+		
 		if ($widths == null)
 		{
 			$widths = array(240, 360, 480, 768, 940, 1024);
 		}
+		
 		foreach ($widths as $width)
 		{
 			$dataFocus = json_decode($storage->getFocus($imgPath, $width), true);

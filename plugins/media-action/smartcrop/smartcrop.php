@@ -50,6 +50,7 @@ class PlgMediaActionSmartCrop extends CMSPlugin
 		// Fetch the parameters.
 		$parameterObject = $this->params->get('customWidth', false);
 		$widths = [];
+		
 		if ($parameterObject)
 		{
 			foreach ($parameterObject as $customWidth)
