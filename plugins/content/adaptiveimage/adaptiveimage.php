@@ -104,6 +104,15 @@ class PlgContentAdaptiveImage extends CMSPlugin
 			// Image Path
 			$imgPath = "/" . $src[1];
 
+			// check if the original image is present or not
+			if(!file_exists($imgPath))
+			{
+				$storage = new JSONFocusStore;
+				$storage->deleteFocus($imgPath);
+				$storage->deleteResizedImages($imgPath);
+				continue;
+			}
+
 			$imageName = explode("/", $imgPath);
 			$imageName = $imageName[max(array_keys($imageName))];
 
