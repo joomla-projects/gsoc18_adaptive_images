@@ -105,7 +105,7 @@ class PlgContentAdaptiveImage extends CMSPlugin
 			$imgPath = "/" . $src[1];
 
 			// check if the original image is present or not
-			if(!file_exists($imgPath))
+			if(file_exists($imgPath))
 			{
 				$storage = new JSONFocusStore;
 				$storage->deleteFocus($imgPath);
@@ -133,6 +133,12 @@ class PlgContentAdaptiveImage extends CMSPlugin
 				}
 			}
 			arsort($cacheImages);
+
+			// Skiping if no resized images are present
+			if(empty($cacheImages))
+			{
+				continue;
+			}
 
 			$element = "<picture>\n";
 			foreach ($cacheImages as $key => $attributes)
