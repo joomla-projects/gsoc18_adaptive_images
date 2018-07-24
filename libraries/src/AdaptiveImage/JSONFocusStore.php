@@ -33,6 +33,14 @@ class JSONFocusStore implements FocusStoreInterface
 	 */
 	protected static $dataLocation = JPATH_PLUGINS . '/media-action/smartcrop/focus.json';
 	/**
+	 * Base path for cache images.
+	 *
+	 * @var     string
+	 *
+	 * @since   4.0.0
+	 */
+	protected $cacheDir =  "/media/focus";
+	/**
 	 * Checks the storage at the initilization of the class
 	 * 
 	 * @since 4.0.0
@@ -89,9 +97,7 @@ class JSONFocusStore implements FocusStoreInterface
 
 			file_put_contents(static::$dataLocation, json_encode($newEntry));
 		}
-
 		return true;
-
 	}
 
 	/**
@@ -132,6 +138,32 @@ class JSONFocusStore implements FocusStoreInterface
 		}
 	}
 	/**
+	 * Function for removeing the focus points for all widths
+	 * 
+	 * @param   string  $imgSrc  Path of the image
+	 * 
+	 * @return  boolean
+	 * 
+	 * @since 4.0.0
+	 */
+	public function deleteFocus($imgSrc)
+	{
+		
+	}
+	/**
+	 * Function for removeing all the associated resized images
+	 * 
+	 * @param   string  $imgSrc  Path of the image
+	 * 
+	 * @return  boolean
+	 * 
+	 * @since 4.0.0
+	 */
+	public function deleteResizedImages($imgSrc)
+	{
+		
+	}
+	/**
 	 * Check whether the file exist
 	 *
 	 * @param   string  $dataLocation  location of storage file
@@ -146,7 +178,6 @@ class JSONFocusStore implements FocusStoreInterface
 		{
 			touch($dataLocation);
 		}
-
 		return true;
 	}
 	/**
