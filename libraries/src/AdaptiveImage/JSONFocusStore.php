@@ -153,6 +153,8 @@ class JSONFocusStore implements FocusStoreInterface
 			$prevData = file_get_contents(static::$dataLocation);
 
 			$prevData = json_decode($prevData, true);
+			
+			unset($prevData[$imgSrc]);
 
 			file_put_contents(static::$dataLocation, json_encode($prevData));
 		}
@@ -182,7 +184,7 @@ class JSONFocusStore implements FocusStoreInterface
 			$imgWidth = $imgWidth[0];
 			$extension = $imgName[1];
 			$imgName = base64_decode($imgName[0]) . "." . $extension;
-
+			
 			if ($imgName == $imgSrc)
 			{
 				unlink(JPATH_SITE . $this->cacheDir . "/" . $name);
