@@ -154,8 +154,6 @@ class JSONFocusStore implements FocusStoreInterface
 
 			$prevData = json_decode($prevData, true);
 
-			unset($prevData[$imgPath]);
-
 			file_put_contents(static::$dataLocation, json_encode($prevData));
 		}
 		return true;
@@ -178,15 +176,16 @@ class JSONFocusStore implements FocusStoreInterface
 
 		foreach ($cacheFolderImages as $key => $name)
 		{
+
 			$imgWidth = explode("_", $name);
 			$imgName = explode(".", $imgWidth[1]);
 			$imgWidth = $imgWidth[0];
 			$extension = $imgName[1];
 			$imgName = base64_decode($imgName[0]) . "." . $extension;
 
-			if (strpos($imgName, $imgSrc))
+			if ($imgName == $imgSrc)
 			{
-				rm(JPATH_SITE . $this->cacheDir . "/" . $name);
+				unlink(JPATH_SITE . $this->cacheDir . "/" . $name);
 			}
 		}
 		return true;
