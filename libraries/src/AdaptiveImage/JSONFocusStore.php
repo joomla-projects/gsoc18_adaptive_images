@@ -148,7 +148,17 @@ class JSONFocusStore implements FocusStoreInterface
 	 */
 	public function deleteFocus($imgSrc)
 	{
-		
+		if (filesize(static::$dataLocation))
+		{
+			$prevData = file_get_contents(static::$dataLocation);
+
+			$prevData = json_decode($prevData, true);
+
+			unset($prevData[$imgPath]);
+
+			file_put_contents(static::$dataLocation, json_encode($prevData));
+		}
+		return true;
 	}
 	/**
 	 * Function for removeing all the associated resized images
