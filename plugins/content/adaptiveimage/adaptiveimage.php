@@ -36,6 +36,7 @@ class PlgContentAdaptiveImage extends CMSPlugin
 	 *
 	 * @since   4.0.0
 	 */
+
 	protected $cacheDir =  "/media/focus";
 	/**
 	 * Plugin that inserts focus points into the image.
@@ -101,8 +102,8 @@ class PlgContentAdaptiveImage extends CMSPlugin
 			// Image Path
 			$imgPath = "/" . $src[1];
 
-			// check if the original image is present or not
-			if(file_exists($imgPath))
+			// Check if the original image is present or not
+			if (file_exists($imgPath))
 			{
 				$storage = new JSONFocusStore;
 				$storage->deleteFocus($imgPath);
@@ -135,14 +136,14 @@ class PlgContentAdaptiveImage extends CMSPlugin
 			arsort($cacheImages);
 
 			// Skiping if no resized images are present
-			if(empty($cacheImages))
+			if (empty($cacheImages))
 			{
 				continue;
 			}
 
 			// Generating the tag
 			$element = "<picture>\n";
-			
+
 			foreach ($cacheImages as $key => $attributes)
 			{
 				$source = "<source media=\"(min-width: " . $attributes["width"] . "px)\" srcset=\"" . $attributes["name"] . "\">\n";

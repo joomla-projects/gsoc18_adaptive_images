@@ -39,6 +39,7 @@ class JSONFocusStore implements FocusStoreInterface
 	 *
 	 * @since   4.0.0
 	 */
+	
 	protected $cacheDir =  "/media/focus";
 	/**
 	 * Checks the storage at the initilization of the class
@@ -178,7 +179,6 @@ class JSONFocusStore implements FocusStoreInterface
 
 		foreach ($cacheFolderImages as $key => $name)
 		{
-
 			$imgWidth = explode("_", $name);
 			$imgName = explode(".", $imgWidth[1]);
 			$imgWidth = $imgWidth[0];
