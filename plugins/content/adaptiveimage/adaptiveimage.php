@@ -29,7 +29,6 @@ class PlgContentAdaptiveImage extends CMSPlugin
 	 * @since  4.0.0
 	 */
 	protected $autoloadLanguage = true;
-
 	/**
 	 * Base path for cache images.
 	 *
@@ -50,7 +49,6 @@ class PlgContentAdaptiveImage extends CMSPlugin
 	 */
 	public function onContentPrepare($context, &$row, &$params, $page = 0)
 	{
-
 		// Add ResponsifyJS into the client page
 		HTMLHelper::_('script', 'media/plg_media-action_smartcrop/js/responsive-images.min.js', ['version' => 'auto', 'relative' => false]);
 
@@ -64,7 +62,6 @@ class PlgContentAdaptiveImage extends CMSPlugin
 		{
 			return $this->insertFocus($row->text, $params);
 		}
-
 		return $this->insertFocus($row, $params);
 	}
 	/**
@@ -145,6 +142,7 @@ class PlgContentAdaptiveImage extends CMSPlugin
 
 			// Generating the tag
 			$element = "<picture>\n";
+			
 			foreach ($cacheImages as $key => $attributes)
 			{
 				$source = "<source media=\"(min-width: " . $attributes["width"] . "px)\" srcset=\"" . $attributes["name"] . "\">\n";
@@ -154,9 +152,7 @@ class PlgContentAdaptiveImage extends CMSPlugin
 
 			// Replaceing the previous tag with new one in the article.
 			$text = str_replace($image, $element, $text);
-
 		}
-
 		return true;
 	}
 }
