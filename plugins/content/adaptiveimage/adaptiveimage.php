@@ -29,6 +29,7 @@ class PlgContentAdaptiveImage extends CMSPlugin
 	 * @since  4.0.0
 	 */
 	protected $autoloadLanguage = true;
+	
 	/**
 	 * Base path for cache images.
 	 *
@@ -36,7 +37,6 @@ class PlgContentAdaptiveImage extends CMSPlugin
 	 *
 	 * @since   4.0.0
 	 */
-
 	protected $cacheDir =  "/media/focus";
 	/**
 	 * Plugin that inserts focus points into the image.
