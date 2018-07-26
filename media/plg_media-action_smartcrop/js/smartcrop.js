@@ -142,7 +142,9 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 			// Initialize
 			initSmartCrop(mediaData);
 			addCustomWidths();
-			addDeleteButton();
+			if(!document.getElementById("delete-focus")) {
+				addDeleteButton();
+			}
 		},
 		Deactivate: function () {
 			var width = document.getElementById("jform_requestedWidth").value;
