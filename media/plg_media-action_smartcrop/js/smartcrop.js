@@ -127,7 +127,7 @@ Joomla.MediaManager.Edit = Joomla.MediaManager.Edit || {};
 		deleteButton.addEventListener('click', function() {
 			Joomla.request({
 				url: resolveBaseUrl() + "/administrator/index.php?option=com_media&task=adaptiveimage.deleteFocus&path=" + path,
-				method: 'GET',
+				method: 'POST',
 			});
 		});
 
