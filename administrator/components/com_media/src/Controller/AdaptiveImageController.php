@@ -70,14 +70,11 @@ class AdaptiveImageController extends BaseController
 				{
 					return false;
 				}
-				else
-				{
-					$imgPath = $this->input->getString('path');
-					$storage = new JSONFocusStore;
-					$storage->deleteFocus($imgPath);
-					$storage->deleteResizedImages($imgPath);
-					return true;
-				}
+				$imgPath = $this->input->getString('path');
+				$storage = new JSONFocusStore;
+				$storage->deleteFocus($imgPath);
+				$storage->deleteResizedImages($imgPath);
+				return true;
 			default :
 				return false;
 		}
