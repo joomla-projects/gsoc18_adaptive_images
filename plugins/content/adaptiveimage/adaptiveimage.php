@@ -140,6 +140,8 @@ class PlgContentAdaptiveImage extends CMSPlugin
 			{
 				continue;
 			}
+			
+			// @TODO Use Jlayout for creation of the picture element.
 
 			// Generating the tag
 			$element = "<picture>\n";
