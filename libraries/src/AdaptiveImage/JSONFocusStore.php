@@ -76,7 +76,7 @@ class JSONFocusStore implements FocusStoreInterface
 			)
 		);
 
-		if (filesize(static::$dataLocation))
+		if (filesize(static::$dataLocation) > 0)
 		{
 			$prevData = file_get_contents(static::$dataLocation);
 
@@ -149,7 +149,7 @@ class JSONFocusStore implements FocusStoreInterface
 	 */
 	public function deleteFocus($imgSrc)
 	{
-		if (filesize(static::$dataLocation))
+		if (filesize(static::$dataLocation) > 0)
 		{
 			$prevData = file_get_contents(static::$dataLocation);
 
