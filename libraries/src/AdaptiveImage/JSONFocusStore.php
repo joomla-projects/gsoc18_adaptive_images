@@ -31,7 +31,7 @@ class JSONFocusStore implements FocusStoreInterface
 	 *
 	 * @since 4.0.0
 	 */
-	protected static $dataLocation = JPATH_PLUGINS . '/media-action/smartcrop/focus.json';
+	protected static $dataLocation = JPATH_PLUGINS . '/media-action/focus/focus.json';
 	
 	/**
 	 * Base path for cache images.
