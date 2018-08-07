@@ -32,6 +32,7 @@ class JSONFocusStore implements FocusStoreInterface
 	 * @since 4.0.0
 	 */
 	protected static $dataLocation = JPATH_PLUGINS . '/media-action/focus/data/focus.json';
+
 	/**
 	 * Location for all focus related storage.
 	 *
@@ -40,6 +41,7 @@ class JSONFocusStore implements FocusStoreInterface
 	 * @since 4.0.0
 	 */
 	protected static $dataFolder = JPATH_PLUGINS . '/media-action/focus/data/';
+	
 	/**
 	 * Base path for cache images.
 	 *
