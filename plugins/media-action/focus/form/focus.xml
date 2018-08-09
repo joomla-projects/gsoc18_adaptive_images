@@ -36,7 +36,7 @@
 			pattern="\d*\.?\d*"
 		/>
 
-        <field
+		<field
 			name="data_focus_width"
 			type="text"
 			label="PLG_MEDIA-ACTION_FOCUS_PARAM_WIDTH"
@@ -45,7 +45,7 @@
 			pattern="\d*\.?\d*"
 		/>
 
-        <field
+		<field
 			name="data_focus_height"
 			type="text"
 			label="PLG_MEDIA-ACTION_FOCUS_PARAM_HEIGHT"
